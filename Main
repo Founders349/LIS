@@ -36,6 +36,7 @@ def get_map_size():
                 break
 # stores the map size so we can make the map
 num_of_tiles = get_map_size()
+# Creates the rooms... hopefully
 class Room:
 
     def __init__(self):
@@ -45,35 +46,34 @@ class Room:
 class Medbay(Room):
     room_type = "Medbay"
     room_ID = 1
-    pass
+
 
 class Armory(Room):
     room_type = "Armory"
     room_ID = 2
-    pass
+
 
 class Storage(Room):
     room_type = "Storage"
     room_ID = 3
-    pass
+
 
 class Security(Room):
     room_type = "Security"
     room_ID = 4
-    pass
 
-# class Airlock(Room):
-    #room_type = "Airlock"
-    #room_ID = 5
-    #pass
+class Airlock(Room):
+    room_type = "Airlock"
+    room_ID = 5
+
 
 class Lab(Room):
     room_type = "Lab"
     room_ID = 6
-    pass
 
 # defines Playable Characters
 class Civilian:
+
     health = 50
     isdead = False
     Will_move = "N"
