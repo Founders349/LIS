@@ -58,7 +58,13 @@ class Security(Room):
     room_type = "Security"
     pass
 
-class Airlock()
+class Airlock(Room):
+    room_type = "Airlock"
+    pass
+
+class Lab(Room):
+    room_type = "Lab"
+    pass
 
 # defines Playable Characters
 class Civilian:
