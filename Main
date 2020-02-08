@@ -62,10 +62,10 @@ class Security(Room):
     room_ID = 4
     pass
 
-class Airlock(Room):
-    room_type = "Airlock"
-    room_ID = 5
-    pass
+# class Airlock(Room):
+    #room_type = "Airlock"
+    #room_ID = 5
+    #pass
 
 class Lab(Room):
     room_type = "Lab"
