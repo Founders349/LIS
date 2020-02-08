@@ -1,0 +1,168 @@
+#!/usr/bin/env python
+import random
+# Randomly generates a map size
+def get_map_size():
+    mapsize = input('Enter S/M/L: ')
+    num_of_tiles = 0
+    if mapsize == 'S' or 'M' or 'L':
+        if mapsize == 'S':
+            num_of_tiles = random.randrange(25,35)
+            print("The Map is", num_of_tiles, "Tiles")
+            return num_of_tiles
+        elif mapsize == 'M':
+            num_of_tiles = random.randrange(40,50)
+            print("The Map is", num_of_tiles, "Tiles")
+            return num_of_tiles
+        elif mapsize == 'L':
+            num_of_tiles = random.randrange(80,100)
+            print("The Map is", num_of_tiles, "Tiles")
+            return num_of_tiles
+        while num_of_tiles == 0:
+            mapsize = input('Enter S/M/L: ')
+            if mapsize == 'S':
+                num_of_tiles = random.randrange(25,35)
+                print("The Map is", num_of_tiles, "Tiles")
+                return num_of_tiles
+                break
+            elif mapsize == 'M':
+                num_of_tiles = random.randrange(40,50)
+                print("The Map is", num_of_tiles, "Tiles")
+                return num_of_tiles
+                break
+            elif mapsize == 'L':
+                num_of_tiles = random.randrange(80,100)
+                print("The Map is", num_of_tiles, "Tiles")
+                return num_of_tiles
+                break
+# stores the map size so we can make the map
+num_of_tiles = get_map_size()
+class Room:
+
+    def __init__(self):
+        num_of_sides = random.randrange(0,4)
+        pass
+
+class Medbay(Room):
+    room_type = "Medbay"
+    pass
+
+class Armory(Room):
+    room_type = "Armory"
+    pass
+
+class Storage(Room):
+    room_type = "Storage"
+    pass
+
+class Security(Room):
+    room_type = "Security"
+    pass
+
+class Airlock()
+
+# defines Playable Characters
+class Civilian:
+    health = 50
+    isdead = False
+    Will_move = "N"
+    Will_search = "N"
+    Will_interact = "N"
+    # initializes character with character stats
+    def __init__(self, strength, AC, WS, BS):
+        self.strength = strength
+        self.AC = AC
+        self.WS = WS
+        self.BS = BS
+
+    def isdead(self):
+        if (self.health <= 0):
+            self.isdead = True
+
+# subclasses of Civilian
+class Engineer(Civilian):
+    equiptment = "maintenance tool"
+    skill = "Override"
+class Doctor(Civilian):
+    equiptment = "Meds"
+    equiptment_amount = 2
+    skill = "PHD", "Blood Timer"
+class Veteran(Civilian):
+    equiptment = "Deagle"
+    skill = "Pilot"
+class Technician(Civilian):
+    pass
+class Chemist(Civilian):
+    pass
+class Astronaut(Civilian):
+    pass
+class Delegate(Civilian):
+    pass
+
+# Government players
+class Govt():
+    pass
+
+# Checks if a Civilian is dead
+def isdead(name):
+    if name.health <= 0:
+        name.isdead = True
+        return name.isdead
+# basic attack setup
+def attack(name, damage):
+    name.health = (name.health - damage)
+    return name.health
+# Start turn based functions
+# Asks player to see if they will move
+def check_Move(name):
+    Will_move = input("Will you move? Y/N ")
+    if Will_move == "Y":
+        name.Will_move = "Y"
+    elif Will_move == "N":
+        name.Will_move = "N"
+    else:
+        name.Will_move = "N"
+    return name.Will_move
+# Asks player if they will search the room
+def check_Search(name):
+    Will_search = input("Will you search your current room? Y/N ")
+    if Will_search == "Y":
+        name.Will_search = "Y"
+    elif Will_search == "N":
+        name.Will_search = "N"
+    else:
+        name.Will_search = "N"
+    return name.Will_search
+# Asks the player if they want to interact with the room
+def check_Interact(name):
+    Will_interact = input("Will you interact with the current room? Y/N ")
+    if Will_interact == "Y":
+        name.Will_interact = "Y"
+    elif Will_interact == "N":
+        name.Will_interact = "N"
+    else:
+        name.Will_interact = "N"
+    return name.Will_interact
+
+# def run_Turn(name):
+    # pass
+
+    # Will_attack = input("Will you attack? Y/N")
+    # if (Will_attack == "Y"):
+    #    print("Okay")
+# tests all my code
+def main():
+    print(num_of_tiles)
+    engineer_1 = Engineer(20,12,10,10)
+    attack(engineer_1, 10)
+    print(engineer_1.health)
+    attack(engineer_1, 60)
+    print(engineer_1.health)
+    isdead(engineer_1)
+    print(engineer_1.isdead)
+    check_Move(engineer_1)
+    print(engineer_1.Will_move)
+    #print(engineer_1.strength)
+    #print(engineer_1.AC)
+    #print(engineer_1.WS)
+    #print(engineer_1.BS)
+main()
