@@ -153,6 +153,9 @@ def check_Interact(name):
     # Will_attack = input("Will you attack? Y/N")
     # if (Will_attack == "Y"):
     #    print("Okay")
+def diceRoll(Nsides):
+    roll=random.randint(1,Nsides)
+    return(roll)
 # tests all my code
 def main():
     print(num_of_tiles)
@@ -169,13 +172,9 @@ def main():
     print(engineer_1.AC)
     print(engineer_1.WS)
     print(engineer_1.BS)
-
-
-def diceRoll(Nsides):
-    roll=random.randint(1,Nsides)
-    return(roll)
+    print(diceRoll(6))
 
 
 main()
-diceRoll(6)
-print(roll)
+
+
