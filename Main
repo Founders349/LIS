@@ -176,5 +176,11 @@ def main():
     print(engineer_1.strength)
     print(engineer_1.AC)
     print(engineer_1.WS)
-    #print(engineer_1.BS)
+    print(engineer_1.BS)
+
+def diceRoll(Nsides):
+    roll=random.randint(1,Nsides)
+    return(roll)
 main()
+diceRoll(6)
+print(roll)
