@@ -1,39 +1,31 @@
 #!/usr/bin/env python
 import random
 # Randomly generates a map size
+def diceRoll(Nsides):
+    roll=random.randint(1,Nsides)
+    return(roll)
+
 def get_map_size():
     mapsize = input('Enter S/M/L: ')
     num_of_tiles = 0
-    if mapsize == 'S' or 'M' or 'L':
+    while num_of_tiles == 0:
+        mapsize = input('Enter S/M/L: ')
         if mapsize == 'S':
-            num_of_tiles = random.randrange(25,35)
+            num_of_tiles = random.randrange(25, 35)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
+            break
         elif mapsize == 'M':
-            num_of_tiles = random.randrange(40,50)
+            num_of_tiles = random.randrange(40, 50)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
+            break
         elif mapsize == 'L':
-            num_of_tiles = random.randrange(80,100)
+            num_of_tiles = random.randrange(80, 100)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
-        while num_of_tiles == 0:
-            mapsize = input('Enter S/M/L: ')
-            if mapsize == 'S':
-                num_of_tiles = random.randrange(25,35)
-                print("The Map is", num_of_tiles, "Tiles")
-                return num_of_tiles
-                break
-            elif mapsize == 'M':
-                num_of_tiles = random.randrange(40,50)
-                print("The Map is", num_of_tiles, "Tiles")
-                return num_of_tiles
-                break
-            elif mapsize == 'L':
-                num_of_tiles = random.randrange(80,100)
-                print("The Map is", num_of_tiles, "Tiles")
-                return num_of_tiles
-                break
+            break
+
 # stores the map size so we can make the map
 num_of_tiles = get_map_size()
 # Creates the rooms... hopefully
@@ -41,6 +33,7 @@ class Room:
 
     def __init__(self):
         num_of_sides = random.randrange(0,4)
+
         pass
 
 class Medbay(Room):
@@ -76,9 +69,9 @@ class Human:
 
     health = 50
     isdead = False
-    Will_move = "N"
-    Will_search = "N"
-    Will_interact = "N"
+    will_move = "N"
+    will_search = "N"
+    will_interact = "N"
     # initializes character with character stats
     def __init__(self, strength, AC, WS, BS):
         self.strength = strength
@@ -118,44 +111,42 @@ def attack(name, damage):
 # Start turn based functions
 # Asks player to see if they will move
 def check_Move(name):
-    Will_move = input("Will you move? Y/N ")
-    if Will_move == "Y":
-        name.Will_move = "Y"
-    elif Will_move == "N":
-        name.Will_move = "N"
+    will_move = input("Will you move? Y/N ")
+    if will_move == "Y":
+        name.will_move = "Y"
+    elif will_move == "N":
+        name.will_move = "N"
     else:
-        name.Will_move = "N"
-    return name.Will_move
+        name.will_move = "N"
+    return name.will_move
 # Asks player if they will search the room
 def check_Search(name):
-    Will_search = input("Will you search your current room? Y/N ")
-    if Will_search == "Y":
-        name.Will_search = "Y"
-    elif Will_search == "N":
-        name.Will_search = "N"
+    will_search = input("Will you search your current room? Y/N ")
+    if will_search == "Y":
+        name.will_search = "Y"
+    elif will_search == "N":
+        name.will_search = "N"
     else:
-        name.Will_search = "N"
-    return name.Will_search
+        name.will_search = "N"
+    return name.will_search
 # Asks the player if they want to interact with the room
 def check_Interact(name):
-    Will_interact = input("Will you interact with the current room? Y/N ")
-    if Will_interact == "Y":
-        name.Will_interact = "Y"
-    elif Will_interact == "N":
-        name.Will_interact = "N"
+    will_interact = input("Will you interact with the current room? Y/N ")
+    if will_interact == "Y":
+        name.will_interact = "Y"
+    elif will_interact == "N":
+        name.will_interact = "N"
     else:
-        name.Will_interact = "N"
-    return name.Will_interact
+        name.will_interact = "N"
+    return name.will_interact
 
 # def run_Turn(name):
     # pass
 
-    # Will_attack = input("Will you attack? Y/N")
-    # if (Will_attack == "Y"):
+    # will_attack = input("Will you attack? Y/N")
+    # if (will_attack == "Y"):
     #    print("Okay")
-def diceRoll(Nsides):
-    roll=random.randint(1,Nsides)
-    return(roll)
+
 # tests all my code
 def main():
     print(num_of_tiles)
@@ -167,7 +158,7 @@ def main():
     engineer_1.isdead()
     print(engineer_1.isdead)
     check_Move(engineer_1)
-    print(engineer_1.Will_move)
+    print(engineer_1.will_move)
     print(engineer_1.strength)
     print(engineer_1.AC)
     print(engineer_1.WS)
