@@ -72,7 +72,7 @@ class Lab(Room):
     room_ID = 6
 
 # defines Playable Characters
-class Civilian:
+class Human:
 
     health = 50
     isdead = False
@@ -90,35 +90,27 @@ class Civilian:
         if (self.health <= 0):
             self.isdead = True
 
-# subclasses of Civilian
-class Engineer(Civilian):
+# subclasses of Human
+class Engineer(Human):
     equiptment = "maintenance tool"
     skill = "Override"
-class Doctor(Civilian):
+class Doctor(Human):
     equiptment = "Meds"
     equiptment_amount = 2
     skill = "PHD", "Blood Timer"
-class Veteran(Civilian):
+class Veteran(Human):
     equiptment = "Deagle"
     skill = "Pilot"
-class Technician(Civilian):
+class Technician(Human):
     pass
-class Chemist(Civilian):
+class Chemist(Human):
     pass
-class Astronaut(Civilian):
+class Astronaut(Human):
     pass
-class Delegate(Civilian):
-    pass
-
-# Government players
-class Govt():
+class Delegate(Human):
     pass
 
-# Checks if a Civilian is dead
-def isdead(name):
-    if name.health <= 0:
-        name.isdead = True
-        return name.isdead
+
 # basic attack setup
 def attack(name, damage):
     name.health = (name.health - damage)
@@ -169,7 +161,7 @@ def main():
     print(engineer_1.health)
     attack(engineer_1, 60)
     print(engineer_1.health)
-    isdead(engineer_1)
+    engineer_1.isdead()
     print(engineer_1.isdead)
     check_Move(engineer_1)
     print(engineer_1.Will_move)
