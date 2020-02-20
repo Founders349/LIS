@@ -1,7 +1,51 @@
 #!/usr/bin/env python
 import random
-Object = []
-class Joe:
+import sys
+
+class Room:
+
     def __init__(self):
-        name = Joe
-        
+        num_of_sides = random.randrange(0,4)
+
+        pass
+
+class Medbay(Room):
+    room_type = "Medbay"
+    room_ID = 1
+
+
+class Armory(Room):
+    room_type = "Armory"
+    room_ID = 2
+
+
+class Storage(Room):
+    room_type = "Storage"
+    room_ID = 3
+
+
+class Security(Room):
+    room_type = "Security"
+    room_ID = 4
+
+class Airlock(Room):
+    room_type = "Airlock"
+    room_ID = 5
+
+
+class Lab(Room):
+    room_type = "Lab"
+    room_ID = 6
+
+rows, cols = (5, 5)
+arr = [[0 for i in range(cols)] for j in range(rows)]
+arr[0][0] = 2
+arr[1][1] = 2
+arr[1][1] = 3
+
+
+
+
+def main():
+    print(arr)
+main()
