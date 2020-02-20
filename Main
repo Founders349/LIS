@@ -38,6 +38,7 @@ rows, cols = map_step_one()
 def map_step_two():
     arr = [[0 for i in range(cols)] for j in range(rows)]
     return arr
+
 # Creates the rooms... hopefully
 class Room:
 
@@ -121,13 +122,17 @@ def attack(name, damage):
 # Start turn based functions
 # Asks player to see if they will move
 def check_Move(name):
-    will_move = input("Will you move? Y/N ")
-    if will_move == "Y":
-        name.will_move = "Y"
-    elif will_move == "N":
-        name.will_move = "N"
-    else:
-        name.will_move = "N"
+    case = 0
+    while case == 0:
+        will_move = input("Will you move? Y/N ")
+        if will_move == "Y":
+            name.will_move = "Y"
+            break
+        elif will_move == "N":
+            name.will_move = "N"
+            break
+        else:
+            name.will_move = "N"
     return name.will_move
 # Asks player if they will search the room
 def check_Search(name):
