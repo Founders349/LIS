@@ -6,7 +6,6 @@ def diceRoll(Nsides):
     return(roll)
 
 def get_map_size():
-    mapsize = input('Enter S/M/L: ')
     num_of_tiles = 0
     while num_of_tiles == 0:
         mapsize = input('Enter S/M/L: ')
@@ -162,8 +161,8 @@ def main():
     print(engineer_1.strength)
     print(engineer_1.AC)
     print(engineer_1.WS)
-    print(engineer_1.BS)
-    print(diceRoll(6))
+    # print(engineer_1.BS)
+    # print(diceRoll(6))
 
 
 main()
