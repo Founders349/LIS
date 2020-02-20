@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 import random
-# Randomly generates a map size
+
 def diceRoll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
+
+                                                        ### Start Map Generaton ###
+# gets the map size based of user input
 def get_map_size():
     num_of_tiles = 0
     while num_of_tiles == 0:
@@ -31,36 +34,48 @@ def map_step_one():
         rows, cols = (9,9)
         return rows, cols
     else:
-        rows, cols = (12,12)
+        rows, cols = (11,11)
         return rows, cols
+
 rows, cols = map_step_one()
 
+# creates map as an array
 def map_step_two():
     arr = [[0 for i in range(cols)] for j in range(rows)]
     return arr
+# Global map
+map = map_step_two()
+
+# creates blank tiles
+def map_step_three():
+    if num_of_tiles < 36:
+        num_of_blanks = 49 - num_of_tiles
+        return num_of_blanks
+    elif 36 < num_of_tiles < 61:
+        num_of_blanks = 81 - num_of_tiles
+        return num_of_blanks
+    else:
+        num_of_blanks = 121 - num_of_tiles
+        return num_of_blanks
+
+# Global Blank
+num_of_blanks = map_step_three()
 
 # Creates the rooms... hopefully
 class Room:
-
-    def __init__(self):
-        num_of_sides = random.randrange(0,4)
-
-        pass
+    pass
 
 class Medbay(Room):
     room_type = "Medbay"
     room_ID = 1
 
-
 class Armory(Room):
     room_type = "Armory"
     room_ID = 2
 
-
 class Storage(Room):
     room_type = "Storage"
     room_ID = 3
-
 
 class Security(Room):
     room_type = "Security"
@@ -70,11 +85,24 @@ class Airlock(Room):
     room_type = "Airlock"
     room_ID = 5
 
-
 class Lab(Room):
     room_type = "Lab"
     room_ID = 6
 
+# Creates room objects
+def map_step_four():
+    one = Medbay()
+    two = Armory()
+    three = Storage()
+    four = Security()
+    five = Airlock()
+    six = Lab()
+    return one, two, three, four, five, six
+
+def map_step_five():
+
+
+                                                     ### Start PC's ###
 # defines Playable Characters
 class Human:
 
@@ -119,7 +147,7 @@ class Delegate(Human):
 def attack(name, damage):
     name.health = (name.health - damage)
     return name.health
-# Start turn based functions
+                                            ### Start turn based functions ###
 # Asks player to see if they will move
 def check_Move(name):
     case = 0
@@ -179,7 +207,7 @@ def main():
     print(engineer_1.WS)
     print(engineer_1.BS)
     print(diceRoll(6))
-    print(map_step_two())
-
+    print(map)
+    print(num_of_blanks)
 
 main()
