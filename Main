@@ -4,9 +4,7 @@ import random
 def diceRoll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
-
 def get_map_size():
-    mapsize = input('Enter S/M/L: ')
     num_of_tiles = 0
     while num_of_tiles == 0:
         mapsize = input('Enter S/M/L: ')
@@ -14,20 +12,32 @@ def get_map_size():
             num_of_tiles = random.randrange(25, 35)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
-            break
         elif mapsize == 'M':
-            num_of_tiles = random.randrange(40, 50)
+            num_of_tiles = random.randrange(40, 60)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
-            break
         elif mapsize == 'L':
             num_of_tiles = random.randrange(80, 100)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
-            break
 
 # stores the map size so we can make the map
 num_of_tiles = get_map_size()
+def map_step_one():
+    if num_of_tiles < 36:
+        rows, cols = (7,7)
+        return rows, cols
+    elif 36 < num_of_tiles < 61:
+        rows, cols = (9,9)
+        return rows, cols
+    else:
+        rows, cols = (12,12)
+        return rows, cols
+rows, cols = map_step_one()
+
+def map_step_two():
+    arr = [[0 for i in range(cols)] for j in range(rows)]
+    return arr
 # Creates the rooms... hopefully
 class Room:
 
@@ -164,6 +174,7 @@ def main():
     print(engineer_1.WS)
     print(engineer_1.BS)
     print(diceRoll(6))
+    print(map_step_two())
 
 
 main()
