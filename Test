@@ -1,2 +1,7 @@
 #!/usr/bin/env python
 import random
+Object = []
+class Joe:
+    def __init__(self):
+        name = Joe
+        
