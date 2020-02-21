@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import random
-
+import numpy as np
 def diceRoll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
@@ -91,43 +91,37 @@ class Lab(Room):
     room_type = "Lab"
     room_ID = 6
 
-# Creates room objects
-def map_step_four():
-    one = Medbay()
-    two = Armory()
-    three = Storage()
-    four = Security()
-    five = Airlock()
-    six = Lab()
-    return one, two, three, four, five, six
-
-#Function to convert room in map_step_five to something nameable
-def room_conv(x):
-    if x == 1: return "one"
-    elif x == 2: return "two"
-    elif x == 3: return "three"
-    elif x == 4: return "four"
-    elif x == 5: return "five"
-    else: return "six"
 
 #Function to check if the room can take more of that room type
 def check_avail(x):
-    if x.num < x.max: return True
+    if np.count_nonzero(arr == x) < 10: return True
     else: return False
 
-def map_step_five():
+def map_step_four():
     while (num_of_blanks + num_of_tiles > 0):
         i, j = (0,0)
         room = rand.randrange(0,6)
-        if check_avail(room) == True:
+        if room == 0:
             arr.append[i][j] = room
+            num_of_blanks = num_of_blanks - 1
             if i < rows:
                 i = i + 1
-                return i
+                return i, num_of_blanks
+            else:
+                i, j = (0, j + 1)
+                return i, j, num_of_blanks
+        elif check_avail(room) == True:
+            arr.append[i][j] = room
+            num_of_tiles = num_of_tiles - 1
+            if i < rows:
+                i = i + 1
+                return i, num_of_tiles
             else:
                 i, j = (0, j+1)
-                return i,j
+                return i,j, num_of_tiles
 
+# global map redefined
+map = map_step_four()
 
         #Bruh convert
         #Bruh if for blanks
@@ -242,9 +236,10 @@ def main():
     print(map)
     print(num_of_blanks)
     map_step_four()
+    print(map)
 
 
 main()
 
 
-NEW BAND NAME THE FEET OF CHILDREN 
+# NEW BAND NAME THE FEET OF CHILDREN
