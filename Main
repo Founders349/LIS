@@ -100,33 +100,32 @@ class Lab(Room):
 
 #Function to check if the room can take more of that room type
 def check_avail(x):
+    if map.count(x) < 10: return True
+    else: return False
 
-    # if np.count_nonzero(arr == x) < 10: return True
-    # else: return False
-    return
-
-def map_step_four(num_of_blanks, num_of_tiles):
+def map_step_four(num_of_blanks, num_of_tiles): #this is broken right now. fix map[i][j] being out of range
+    i, j = (0, 0)
     while (num_of_blanks + num_of_tiles > 0):
-        i, j = (0,0)
         room = random.randrange(0,6)
-        if room == 0:
-            array.append[i][j] = room
+        #return map
+        if room == 0 and (num_of_blanks > 0):
+            map[i][j] = room
             num_of_blanks = num_of_blanks - 1
             if i < rows:
-                i = i + 1
-                return i, num_of_blanks
+                i = i+1
             else:
-                i, j = (0, j + 1)
-                return i, j, num_of_blanks
+                i = 0
+                j = j + 1
         elif check_avail(room) == True:
-            arr.append[i][j] = room
             num_of_tiles = num_of_tiles - 1
             if i < rows:
                 i = i + 1
-                return i, num_of_tiles
+                map[i][j] = room
+                #return i+1, num_of_tiles
             else:
                 i, j = (0, j+1)
-                return i,j, num_of_tiles
+                map[i][j] = room
+                #return i,j, num_of_tiles
 
 # global map redefined
 # map = map_step_four()
@@ -245,9 +244,9 @@ def main():
     map_step_two()
     print_map()
     print(num_of_blanks)
-    # map_step_three()
-    #map_step_four(num_of_blanks, num_of_tiles)
-    # print(map)
+    map_step_three()
+    map_step_four(num_of_blanks, num_of_tiles)
+    print_map()
 
 
 main()
