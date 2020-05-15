@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import random
-import numpy as np
 def diceRoll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
 
-                                                        ### Start Map Generaton ###
+                                                        ### Start Map Generation ###
 # gets the map size based of user input
 def get_map_size():
     num_of_tiles = 0
@@ -41,10 +40,17 @@ rows, cols = map_step_one()
 
 # creates map as an array
 def map_step_two():
-    arr = [[0 for i in range(cols)] for j in range(rows)]
-    return arr
+    #arr = [[0 for i in range(cols)] for j in range(rows)]
+    #return arr
+    map = [[0 for x in range(rows)] for x in range(cols)]
+    return map
 # Global map
 map = map_step_two()
+def print_map():
+    for i in range(len(map)):
+        for j in range(len(map[i])):
+            print(map[i][j], end=" ")
+        print()
 
 # creates blank tiles
 def map_step_three():
@@ -94,15 +100,17 @@ class Lab(Room):
 
 #Function to check if the room can take more of that room type
 def check_avail(x):
-    if np.count_nonzero(arr == x) < 10: return True
-    else: return False
 
-def map_step_four():
+    # if np.count_nonzero(arr == x) < 10: return True
+    # else: return False
+    return
+
+def map_step_four(num_of_blanks, num_of_tiles):
     while (num_of_blanks + num_of_tiles > 0):
         i, j = (0,0)
-        room = rand.randrange(0,6)
+        room = random.randrange(0,6)
         if room == 0:
-            arr.append[i][j] = room
+            array.append[i][j] = room
             num_of_blanks = num_of_blanks - 1
             if i < rows:
                 i = i + 1
@@ -121,7 +129,7 @@ def map_step_four():
                 return i,j, num_of_tiles
 
 # global map redefined
-map = map_step_four()
+# map = map_step_four()
 
         #Bruh convert
         #Bruh if for blanks
@@ -233,10 +241,13 @@ def main():
     print(engineer_1.WS)
     print(engineer_1.BS)
     print(diceRoll(6))
-    print(map)
+    map_step_one()
+    map_step_two()
+    print_map()
     print(num_of_blanks)
-    map_step_four()
-    print(map)
+    # map_step_three()
+    #map_step_four(num_of_blanks, num_of_tiles)
+    # print(map)
 
 
 main()
