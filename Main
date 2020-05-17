@@ -144,6 +144,7 @@ class Human:
     will_move = "N"
     will_search = "N"
     will_interact = "N"
+    will_attack = "N"
     # initializes character with character stats
     def __init__(self, strength, AC, WS, BS, i, j):
         self.strength = strength
@@ -178,6 +179,20 @@ class Delegate(Human):
 
 
 # basic attack setup
+# checks for attack
+def check_Attack(name):
+    case = 0
+    while case == 0:
+        will_attack = input("Will you attack? Y/N ")
+        if will_attack == "Y":
+            name.will_attack = "Y"
+            break
+        elif will_attack == "N":
+            name.will_attack = "N"
+            break
+        else: name.will_attack = "N"
+    return name.will_attack
+
 def attack(name, damage):
     name.health = (name.health - damage)
     return name.health
@@ -250,6 +265,8 @@ def main():
     #print(num_of_tiles)
     engineer_1 = Engineer(20,12,10,10, 0, 0)
     attack(engineer_1, 10)
+    check_Attack(engineer_1)
+    print(engineer_1.will_attack)
     isDead(engineer_1)
     print(engineer_1.isdead)
     print(engineer_1.health)
