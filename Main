@@ -4,7 +4,7 @@ def diceRoll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
 
-                                                        ### Start Map Generation ###
+#################################################### Start Map Generation #############################################
 # gets the map size based of user input
 def get_map_size():
     num_of_tiles = 0
@@ -35,17 +35,18 @@ def map_step_one():
     else:
         rows, cols = (11,11)
         return rows, cols
-
+# Stores map template
 rows, cols = map_step_one()
 
-# creates map as an array
+# creates map as a list
 def map_step_two():
     #arr = [[0 for i in range(cols)] for j in range(rows)]
     #return arr
     map = [[0 for x in range(rows)] for x in range(cols)]
     return map
-# Global map
+# stores the map
 map = map_step_two()
+# prints the map in a useable way
 def print_map():
     for i in range(len(map)):
         for j in range(len(map[i])):
@@ -64,10 +65,10 @@ def map_step_three():
         num_of_blanks = 121 - num_of_tiles
         return num_of_blanks
 
-# Global Blank
+# stores blank tiles
 num_of_blanks = map_step_three()
 
-# Creates the rooms... hopefully
+# Creates the rooms types
 class Room:
     num = 0
     max = 0
@@ -98,18 +99,18 @@ class Lab(Room):
     room_ID = 6
 
 
-#Function to check if the room can take more of that room type
+# Function to check if the room can take more of that room type
 def check_avail(x):
     if map.count(x) < 10: return True
     else: return False
 
-def map_step_four(num_of_blanks, num_of_tiles): #this is broken right now. fix map[i][j] being out of range
+# Replaces blank rooms with random room types
+def map_step_four(num_of_blanks, num_of_tiles):
     i, j = (0, 0)
     blanks = num_of_blanks
     tiles = num_of_tiles
     while ((blanks + tiles - 1) > 0):
         room = random.randrange(0,6)
-        #return map
         if room == 0 and (blanks > 0):
             map[i][j] = room
             blanks -= 1
@@ -123,22 +124,18 @@ def map_step_four(num_of_blanks, num_of_tiles): #this is broken right now. fix m
             if j < rows-1:
                 j += 1
                 map[i][j] = room
-                #return i+1, num_of_tiles
             else:
                 i, j = (i+1, 0)
                 map[i][j] = room
-                #return i,j, num_of_tiles
 
+# Start up function that makes the map
+def make_map():
+    map_step_one()
+    map_step_two()
+    map_step_three()
+    map_step_four(num_of_blanks, num_of_tiles)
 
-# global map redefined
-# map = map_step_four()
-
-        #Bruh convert
-        #Bruh if for blanks
-        #elif check_avail() = True
-
-
-                                                     ### Start PC's ###
+#################################################### Start PC's #######################################################
 # defines Playable Characters
 class Human:
 
@@ -228,7 +225,7 @@ def check_Interact(name):
 
 # tests all my code
 def main():
-    print(num_of_tiles)
+    #print(num_of_tiles)
     engineer_1 = Engineer(20,12,10,10)
     attack(engineer_1, 10)
     print(engineer_1.health)
@@ -243,12 +240,13 @@ def main():
     print(engineer_1.WS)
     print(engineer_1.BS)
     print(diceRoll(6))
-    map_step_one()
-    map_step_two()
-    print_map()
-    print(num_of_blanks)
-    map_step_three()
-    map_step_four(num_of_blanks, num_of_tiles)
+    #map_step_one()
+    #map_step_two()
+    #print_map()
+    #print(num_of_blanks)
+    #map_step_three()
+    #map_step_four(num_of_blanks, num_of_tiles)
+    make_map()
     print_map()
 
 
