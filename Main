@@ -145,11 +145,13 @@ class Human:
     will_search = "N"
     will_interact = "N"
     # initializes character with character stats
-    def __init__(self, strength, AC, WS, BS):
+    def __init__(self, strength, AC, WS, BS, i, j):
         self.strength = strength
         self.AC = AC
         self.WS = WS
         self.BS = BS
+        self.i = i
+        self.j = j
 
 
 
@@ -180,6 +182,7 @@ def attack(name, damage):
     name.health = (name.health - damage)
     return name.health
                                             ### Start turn based functions ###
+# Checks if the player is dead
 def isDead(name):
     if name.health <=0:
         name.isdead = True
@@ -219,6 +222,19 @@ def check_Interact(name):
     else:
         name.will_interact = "N"
     return name.will_interact
+# Moves the player
+def move(name):
+    if (name.will_move == 'Y'):
+        move = input("Which Direction?  ")
+        if move == "U":
+            name.i -= 1
+        elif move == "D":
+            name.i += 1
+        elif move == "L":
+            name.j -= 1
+        elif move == "R":
+            name.j += 1
+        else: return
 
 # def run_Turn(name):
     # pass
@@ -226,26 +242,32 @@ def check_Interact(name):
     # will_attack = input("Will you attack? Y/N")
     # if (will_attack == "Y"):
     #    print("Okay")
+# Checks the position of a player
+def position(name):
+    print(name.i, name.j)
 
 # tests all my code
 def main():
     #print(num_of_tiles)
-    engineer_1 = Engineer(20,12,10,10)
-    attack(engineer_1, 10)
-    isDead(engineer_1)
-    print(engineer_1.isdead)
-    print(engineer_1.health)
-    attack(engineer_1, 60)
-    print(engineer_1.health)
-    isDead(engineer_1)
-    print(engineer_1.isdead)
+    engineer_1 = Engineer(20,12,10,10, 0, 0)
+    #attack(engineer_1, 10)
+    #isDead(engineer_1)
+    #print(engineer_1.isdead)
+    #print(engineer_1.health)
+    #attack(engineer_1, 60)
+    #print(engineer_1.health)
+    #isDead(engineer_1)
+    #print(engineer_1.isdead)
     check_Move(engineer_1)
     print(engineer_1.will_move)
-    print(engineer_1.strength)
-    print(engineer_1.AC)
-    print(engineer_1.WS)
-    print(engineer_1.BS)
-    print(roll(6))
+    move(engineer_1)
+    move(engineer_1)
+    position(engineer_1)
+    #print(engineer_1.strength)
+    #print(engineer_1.AC)
+    #print(engineer_1.WS)
+    #print(engineer_1.BS)
+    #print(roll(6))
     #map_step_one()
     #map_step_two()
     #print_map()
