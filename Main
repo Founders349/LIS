@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import random
-def diceRoll(Nsides):
+def roll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
 
@@ -151,9 +151,8 @@ class Human:
         self.WS = WS
         self.BS = BS
 
-    def isdead(self):
-        if (self.health <= 0):
-            self.isdead = True
+
+
 
 # subclasses of Human
 class Engineer(Human):
@@ -181,6 +180,11 @@ def attack(name, damage):
     name.health = (name.health - damage)
     return name.health
                                             ### Start turn based functions ###
+def isDead(name):
+    if name.health <=0:
+        name.isdead = True
+    else:
+        name.isdead = False
 # Asks player to see if they will move
 def check_Move(name):
     case = 0
@@ -228,10 +232,12 @@ def main():
     #print(num_of_tiles)
     engineer_1 = Engineer(20,12,10,10)
     attack(engineer_1, 10)
+    isDead(engineer_1)
+    print(engineer_1.isdead)
     print(engineer_1.health)
     attack(engineer_1, 60)
     print(engineer_1.health)
-    engineer_1.isdead()
+    isDead(engineer_1)
     print(engineer_1.isdead)
     check_Move(engineer_1)
     print(engineer_1.will_move)
@@ -239,7 +245,7 @@ def main():
     print(engineer_1.AC)
     print(engineer_1.WS)
     print(engineer_1.BS)
-    print(diceRoll(6))
+    print(roll(6))
     #map_step_one()
     #map_step_two()
     #print_map()
