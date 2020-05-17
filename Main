@@ -245,19 +245,18 @@ def move(name):
 # Checks the position of a player
 def position(name):
     print(name.i, name.j)
-
 # tests all my code
 def main():
     #print(num_of_tiles)
     engineer_1 = Engineer(20,12,10,10, 0, 0)
-    #attack(engineer_1, 10)
-    #isDead(engineer_1)
-    #print(engineer_1.isdead)
+    attack(engineer_1, 10)
+    isDead(engineer_1)
+    print(engineer_1.isdead)
+    print(engineer_1.health)
+    attack(engineer_1, 60)
     #print(engineer_1.health)
-    #attack(engineer_1, 60)
-    #print(engineer_1.health)
-    #isDead(engineer_1)
-    #print(engineer_1.isdead)
+    isDead(engineer_1)
+    print(engineer_1.isdead)
     check_Move(engineer_1)
     print(engineer_1.will_move)
     move(engineer_1)
