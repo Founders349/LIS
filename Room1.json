@@ -1,5 +1,5 @@
 {
-  "Name": "Medbay",
-  "Loot": ["ScrewDriver", "Med Pack", "Syringe", "Blood Bag"],
+  "Type": "Medbay",
+  "Loot": ["ScrewDriver", "Med Pack", "Syringe", "Blood Bag"]
 
 }
