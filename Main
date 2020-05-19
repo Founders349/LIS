@@ -142,7 +142,7 @@ def randomLootGenerator(randomLootList):
 
 rooms=[]
 rooms_actual = []
-def assign_loot(): #This is jus a basic test set up This will not be final
+def assign_loot(): #This is jus a basic test set up this will not be final
     roomfiles = ["./Room1.json","./Room2.json"]
 
 
@@ -330,3 +330,23 @@ main()
 
 
 # NEW BAND NAME THE FEET OF CHILDREN
+
+### TO DO LIST ###
+# Placement of characters
+    # Make sure they're not directly on an island
+    # Place them in a room that is actually a room
+# Creation of loot pools into a somewhat large dictionary
+    # Key bind position to hold loot
+    # Transfer of loot to characters
+    # Figure out which loot will belong in which room
+        # rarity of loot?
+# Crafting (Will be done with dictionaries and will start with very few recipies)
+# Server/ hosting / multiplayer
+    # Turn mechanism
+# Movement into non-zero places
+# Actually attacking
+# Figure out logs
+    # Figure out where to store the logs
+# Start up sequence
+# Stats of pretty much everything
+# BONDING AS ROOMMATES :) 
