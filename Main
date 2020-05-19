@@ -290,6 +290,7 @@ def main():
     #map_step_four(num_of_blanks, num_of_tiles)
     make_map()
     print_map()
+    for i in range(0,11): print(map[i].count(0)) #counts the free spaces
 
 
 main()
