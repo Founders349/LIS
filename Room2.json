@@ -1,4 +1,5 @@
 {
   "Type": "Armory",
-  "Loot": ["Attchments", "Guns?"]
+  "Loot": ["Attchments", "Guns?"],
+  "MaxLoot": 1
 }
