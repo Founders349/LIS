@@ -142,7 +142,7 @@ def randomLootGenerator(randomLootList):
 
 rooms=[]
 rooms_actual = []
-def assign_loot(): #This is jus a basic test set up
+def assign_loot(): #This is jus a basic test set up This will not be final
     roomfiles = ["./Room1.json","./Room2.json"]
 
 
