@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import random
+import json
 def roll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
@@ -135,7 +136,30 @@ def make_map():
     map_step_three()
     map_step_four(num_of_blanks, num_of_tiles)
 
-                                                 ### Start PC's ###
+
+def randomLootGenerator(randomLootList):
+  return randomLootList[random.randrange(len(randomLootList))]
+
+def assign_loot():
+    roomfiles = ["./Room1.json","./Room2.json"]
+    rooms = []
+
+    for filename in roomfiles:
+        with open(filename) as f:
+            roomjson = json.load(f)
+        assert isinstance(roomjson, dict)
+        rooms.append(roomjson)
+    print("Number of Room Types: " + str(len(rooms)))
+
+    for x in rooms:
+        print("Type: " + x.get("Type"))
+        for m in range((x.get("MaxLoot"))):
+            y = randomLootGenerator(x.get("Loot"))
+            print("Loot: " + y)
+
+
+
+                                                ### Start PC's ###
 # defines Playable Characters
 class Human:
 
@@ -290,7 +314,8 @@ def main():
     #map_step_four(num_of_blanks, num_of_tiles)
     make_map()
     print_map()
-    for i in range(0,11): print(map[i].count(0)) #counts the free spaces
+    #for i in range(0,11): print(map[i].count(0)) #counts the free spaces
+    assign_loot()
 
 
 main()
