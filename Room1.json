@@ -1,7 +1,6 @@
 {
   "Type": "Medbay",
-  "Loot": ["ScrewDriver", "Med Pack", "Syringe", "Blood Bag"],
+  "Loot": ["Scalpel", "Med Pack", "Syringe", "Blood Bag"],
   "MaxLoot": 2,
   "Foes": ["Are", "We", "Gonna", "Do", "Foes?"]
-
 }
