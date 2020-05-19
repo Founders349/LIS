@@ -140,9 +140,11 @@ def make_map():
 def randomLootGenerator(randomLootList):
   return randomLootList[random.randrange(len(randomLootList))]
 
-def assign_loot():
+rooms=[]
+rooms_actual = []
+def assign_loot(): #This is jus a basic test set up
     roomfiles = ["./Room1.json","./Room2.json"]
-    rooms = []
+
 
     for filename in roomfiles:
         with open(filename) as f:
@@ -150,12 +152,16 @@ def assign_loot():
         assert isinstance(roomjson, dict)
         rooms.append(roomjson)
     print("Number of Room Types: " + str(len(rooms)))
-
     for x in rooms:
         print("Type: " + x.get("Type"))
+        roommod = []
+        roommod.append(x.get("Type"))
         for m in range((x.get("MaxLoot"))):
             y = randomLootGenerator(x.get("Loot"))
+            roommod.append(y)
             print("Loot: " + y)
+        rooms_actual.append(roommod)
+    return rooms, rooms_actual
 
 
 
@@ -316,6 +322,8 @@ def main():
     print_map()
     #for i in range(0,11): print(map[i].count(0)) #counts the free spaces
     assign_loot()
+    print(rooms)
+    print(rooms_actual)
 
 
 main()
