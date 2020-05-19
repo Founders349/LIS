@@ -1,5 +1,6 @@
 {
   "Type": "Medbay",
-  "Loot": ["ScrewDriver", "Med Pack", "Syringe", "Blood Bag"]
+  "Loot": ["ScrewDriver", "Med Pack", "Syringe", "Blood Bag"],
+  "Foes": ["Are", "We", "Gonna", "Do", "Foes?"]
 
 }
