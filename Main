@@ -4,7 +4,7 @@ def roll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
 
-#################################################### Start Map Generation #############################################
+                                            ### Start Map Generation ###
 # gets the map size based of user input
 def get_map_size():
     num_of_tiles = 0
@@ -68,7 +68,7 @@ def map_step_three():
 # stores blank tiles
 num_of_blanks = map_step_three()
 
-# Creates the rooms types
+# Creates the rooms types               ***This will probably be taken out to favor the JSON files***
 class Room:
     num = 0
     max = 0
@@ -99,7 +99,7 @@ class Lab(Room):
     room_ID = 6
 
 
-# Function to check if the room can take more of that room type
+# Function to check if the room can take more of that room type (Doesnt do anything but im afraid to take it out)
 def check_avail(x):
     if map.count(x) < 10: return True
     else: return False
@@ -135,7 +135,7 @@ def make_map():
     map_step_three()
     map_step_four(num_of_blanks, num_of_tiles)
 
-#################################################### Start PC's #######################################################
+                                                 ### Start PC's ###
 # defines Playable Characters
 class Human:
 
@@ -153,9 +153,6 @@ class Human:
         self.BS = BS
         self.i = i
         self.j = j
-
-
-
 
 # subclasses of Human
 class Engineer(Human):
@@ -196,7 +193,8 @@ def check_Attack(name):
 def attack(name, damage):
     name.health = (name.health - damage)
     return name.health
-                                            ### Start turn based functions ###
+
+                                           ### Start turn based functions ###
 # Checks if the player is dead
 def isDead(name):
     if name.health <=0:
