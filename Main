@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import random
 import json
+import logging
 def roll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
@@ -144,8 +145,7 @@ def randomLootGenerator(randomLootList):
 rooms=[]
 rooms_actual = []
 def assign_loottest(): #This is jus a basic test set up this will not be final
-    roomfiles = ["./Room1.json","./Room2.json"]
-
+    roomfiles = ["./Room1.json","./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
 
     for filename in roomfiles:
         with open(filename) as f:
@@ -164,7 +164,12 @@ def assign_loottest(): #This is jus a basic test set up this will not be final
         rooms_actual.append(roommod)
     return rooms, rooms_actual
 
-def assign_loot():
+def assign_loot(roomNum, i, j):
+    roomfiles = ["./Room1.json", "./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
+    with open(roomfiles[roomNum-1]) as f:
+        roomjson = json.load(f)
+    assert isinstance(roomjson, dict)
+
     pass
 # Runs through the map and assigns random loot based off of the room type calling assign_loot() to assign the loot
 def final_loot_assign(): # Super unfinished
@@ -173,7 +178,8 @@ def final_loot_assign(): # Super unfinished
             if map[i][j] == 0:
                 pass
             elif map[i][j] == 1:
-                assign_loot()
+                roomNUM = 1
+                assign_loot(roomNUM, i, j)
                 return
 
 
