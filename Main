@@ -169,6 +169,8 @@ def assign_loot(roomNum, i, j):
     with open(roomfiles[roomNum-1]) as f:
         roomjson = json.load(f)
     assert isinstance(roomjson, dict)
+    roomdict_small = {}
+
 
     pass
 # Runs through the map and assigns random loot based off of the room type calling assign_loot() to assign the loot
