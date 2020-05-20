@@ -2,6 +2,9 @@
 import random
 import json
 import logging
+
+logging.basicConfig(filename = '', level=logging.DEBUG)
+
 def roll(Nsides):
     roll=random.randint(1,Nsides)
     return(roll)
@@ -180,7 +183,8 @@ def assign_loot(roomNum, i, j):
         loot = randomLootGenerator(roomjson.get("Loot"))
         lootList.append(loot)
     roomdict["Loot"] = lootList
-    return roomdict
+    logging.info(roomdict)
+    return
 
 
 
@@ -194,7 +198,23 @@ def final_loot_assign(): # Super unfinished
             elif map[i][j] == 1:
                 roomNUM = 1
                 assign_loot(roomNUM, i, j)
-                return
+            elif map[i][j] == 2:
+                roomNUM = 2
+                assign_loot(roomNUM, i, j)
+            elif map[i][j] == 3:
+                roomNUM = 3
+                assign_loot(roomNUM, i, j)
+            elif map[i][j] == 4:
+                roomNUM = 4
+                assign_loot(roomNUM, i, j)
+            elif map[i][j] == 5:
+                roomNUM = 5
+                assign_loot(roomNUM, i, j)
+            elif map[i][j] == 6:
+                roomNUM = 6
+                assign_loot(roomNUM, i, j)
+            else:
+                print("ERROR")
 
 
                                                 ### Start PC's ###
