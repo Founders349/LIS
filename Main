@@ -163,20 +163,22 @@ def assign_loottest(): #This is jus a basic test set up this will not be final
             print("Loot: " + y)
         rooms_actual.append(roommod)
     return rooms, rooms_actual
-
+roomdict = {}
 def assign_loot(roomNum, i, j):
+    print(i, j)
     roomfiles = ["./Room1.json", "./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
     with open(roomfiles[roomNum-1]) as f:
         roomjson = json.load(f)
     assert isinstance(roomjson, dict)
-    roomdict_small = {}
+    roomInfo = []
+
 
 
     pass
 # Runs through the map and assigns random loot based off of the room type calling assign_loot() to assign the loot
 def final_loot_assign(): # Super unfinished
-    for i in map[i]:
-        for j in map[i][j]:
+    for i in range(rows):
+        for j in range(cols):
             if map[i][j] == 0:
                 pass
             elif map[i][j] == 1:
@@ -341,9 +343,12 @@ def main():
     make_map()
     print_map()
     #for i in range(0,11): print(map[i].count(0)) #counts the free spaces
-    assign_loottest()
-    print(rooms)
-    print(rooms_actual)
+    # assign_loottest()
+    # print(rooms)
+    # print(rooms_actual)
+    final_loot_assign()
+    print(roomInfo)
+
 
 
 main()
