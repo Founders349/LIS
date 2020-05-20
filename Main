@@ -395,7 +395,7 @@ main()
     # Key bind position to hold loot // FINISHED \\
     # Transfer of loot to character
     # Figure out which loot will belong in which room
-        # rarity of loot?
+        # rarity of loot? -> make more instances of commoner items in the loot list
 # Crafting (Will be done with dictionaries and will start with very few recipies)
 # Server/ hosting / multiplayer
     # Turn mechanism
