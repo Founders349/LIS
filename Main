@@ -191,7 +191,7 @@ def assign_loot(roomNum, i, j):
     return
 
 # Runs through the map and assigns random loot based off of the room type calling assign_loot() to assign the loot
-def final_loot_assign(): # Super unfinished
+def final_loot_assign():
     for i in range(rows):
         for j in range(cols):
             if map[i][j] == 0:
@@ -391,9 +391,9 @@ main()
 # Placement of characters
     # Make sure they're not directly on an island
     # Place them in a room that is actually a room
-# Creation of loot pools into a somewhat large dictionary
-    # Key bind position to hold loot
-    # Transfer of loot to characters
+# Creation of loot pools into a somewhat large dictionary // USED LOG... FINISHED \\
+    # Key bind position to hold loot // FINISHED \\
+    # Transfer of loot to character
     # Figure out which loot will belong in which room
         # rarity of loot?
 # Crafting (Will be done with dictionaries and will start with very few recipies)
