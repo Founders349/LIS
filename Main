@@ -170,7 +170,17 @@ def assign_loot(roomNum, i, j):
     with open(roomfiles[roomNum-1]) as f:
         roomjson = json.load(f)
     assert isinstance(roomjson, dict)
-    roomInfo = []
+    roomPos = []
+    roomPos.append(i)
+    roomPos.append(j)
+    roomdict["position"] = roomPos
+    roomdict["Type"] = (roomjson.get("Type"))
+    lootList = []
+    for m in range(roomjson.get("MaxLoot")):
+        loot = randomLootGenerator(roomjson.get("Loot"))
+        lootList.append(loot)
+    roomdict["Loot"] = lootList
+    return roomdict
 
 
 
@@ -347,7 +357,7 @@ def main():
     # print(rooms)
     # print(rooms_actual)
     final_loot_assign()
-    print(roomInfo)
+    print(roomdict)
 
 
 
