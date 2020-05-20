@@ -3,7 +3,7 @@ import random
 import json
 import logging
 
-logging.basicConfig(filename = '', level=logging.DEBUG)
+logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
 def roll(Nsides):
     roll=random.randint(1,Nsides)
