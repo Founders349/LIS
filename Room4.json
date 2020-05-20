@@ -1,5 +1,5 @@
 {
-
-
-
+  "Type": "Security",
+  "Loot": ["Key Card", "Uniform", "Baton"],
+  "MaxLoot": 1
 }
