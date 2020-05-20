@@ -1,6 +1,5 @@
 {
-
-
-
-
+  "Type": "Storage",
+  "Loot": ["Nuts", "Bolts", "Screwdriver", "Hammer", "Wrench", "Screws", "Nails", "Duct tape"],
+  "MaxLoot": 4
 }
