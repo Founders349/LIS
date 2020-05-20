@@ -2,7 +2,7 @@
 import random
 import json
 import logging
-
+# Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
 def roll(Nsides):
@@ -143,6 +143,7 @@ def make_map():
 
                                                ### Start Loot Generation ###
     # generates random numbers that gather loot for the rooms based on the max amount of loot
+
 def randomLootGenerator(randomLootList):
   return randomLootList[random.randrange(len(randomLootList))]
 
@@ -172,7 +173,6 @@ roomdict = {}
 # Function uses a room number and the coords on the map to randomly generate a dictionary for that room which includes
 # position, type, and random loot. It then logs the rooms.
 def assign_loot(roomNum, i, j):
-    print(i, j)
     roomfiles = ["./Room1.json", "./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
     with open(roomfiles[roomNum-1]) as f:
         roomjson = json.load(f)
@@ -378,7 +378,6 @@ def main():
     # print(rooms)
     # print(rooms_actual)
     final_loot_assign()
-    print(roomdict)
 
 
 
