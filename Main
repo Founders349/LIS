@@ -142,31 +142,35 @@ def make_map():
     map_step_four(num_of_blanks, num_of_tiles)
 
                                                ### Start Loot Generation ###
+    # generates random numbers that gather loot for the rooms based on the max amount of loot
 def randomLootGenerator(randomLootList):
   return randomLootList[random.randrange(len(randomLootList))]
 
-rooms=[]
-rooms_actual = []
-def assign_loottest(): #This is jus a basic test set up this will not be final
-    roomfiles = ["./Room1.json","./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
-
-    for filename in roomfiles:
-        with open(filename) as f:
-            roomjson = json.load(f)
-        assert isinstance(roomjson, dict)
-        rooms.append(roomjson)
-    print("Number of Room Types: " + str(len(rooms)))
-    for x in rooms:
-        print("Type: " + x.get("Type"))
-        roommod = []
-        roommod.append(x.get("Type"))
-        for m in range((x.get("MaxLoot"))):
-            y = randomLootGenerator(x.get("Loot"))
-            roommod.append(y)
-            print("Loot: " + y)
-        rooms_actual.append(roommod)
-    return rooms, rooms_actual
+# rooms=[]
+# rooms_actual = []
+# def assign_loottest(): #This is jus a basic test set up this will not be final
+#     roomfiles = ["./Room1.json","./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
+#
+#     for filename in roomfiles:
+#         with open(filename) as f:
+#             roomjson = json.load(f)
+#         assert isinstance(roomjson, dict)
+#         rooms.append(roomjson)
+#     print("Number of Room Types: " + str(len(rooms)))
+#     for x in rooms:
+#         print("Type: " + x.get("Type"))
+#         roommod = []
+#         roommod.append(x.get("Type"))
+#         for m in range((x.get("MaxLoot"))):
+#             y = randomLootGenerator(x.get("Loot"))
+#             roommod.append(y)
+#             print("Loot: " + y)
+#         rooms_actual.append(roommod)
+#     return rooms, rooms_actual
+# makes a dictionary for the rooms
 roomdict = {}
+# Function uses a room number and the coords on the map to randomly generate a dictionary for that room which includes
+# position, type, and random loot. It then logs the rooms.
 def assign_loot(roomNum, i, j):
     print(i, j)
     roomfiles = ["./Room1.json", "./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
@@ -186,9 +190,6 @@ def assign_loot(roomNum, i, j):
     logging.info(roomdict)
     return
 
-
-
-    pass
 # Runs through the map and assigns random loot based off of the room type calling assign_loot() to assign the loot
 def final_loot_assign(): # Super unfinished
     for i in range(rows):
