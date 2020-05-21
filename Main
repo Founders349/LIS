@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
 def roll(Nsides):
-    roll=random.randint(1,Nsides)
+    roll=random.randint(1, Nsides)
     return(roll)
 
                                             ### Start Map Generation ###
@@ -190,6 +190,10 @@ def assign_loot(roomNum, i, j):
     logging.info(roomdict)
     return
 
+
+def print_Rooms():
+    for i in range(len(roomList)):
+        print(roomList, end = " ")
 # Runs through the map and assigns random loot based off of the room type calling assign_loot() to assign the loot
 def final_loot_assign():
     for i in range(rows):
@@ -378,6 +382,7 @@ def main():
     # print(rooms)
     # print(rooms_actual)
     final_loot_assign()
+    #print_Rooms()
 
 
 
