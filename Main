@@ -170,6 +170,7 @@ def randomLootGenerator(randomLootList):
 #     return rooms, rooms_actual
 # makes a dictionary for the rooms
 roomdict = {}
+roomList = []
 # Function uses a room number and the coords on the map to randomly generate a dictionary for that room which includes
 # position, type, and random loot. It then logs the rooms.
 def assign_loot(roomNum, i, j):
@@ -188,12 +189,14 @@ def assign_loot(roomNum, i, j):
         lootList.append(loot)
     roomdict["Loot"] = lootList
     logging.info(roomdict)
-    return
+    roomdict_copy = roomdict.copy()
+    roomList.append(roomdict_copy)
+    return roomList
 
 
 def print_Rooms():
     for i in range(len(roomList)):
-        print(roomList, end = " ")
+        print(roomList[i], end = "\n")
 # Runs through the map and assigns random loot based off of the room type calling assign_loot() to assign the loot
 def final_loot_assign():
     for i in range(rows):
@@ -382,7 +385,7 @@ def main():
     # print(rooms)
     # print(rooms_actual)
     final_loot_assign()
-    #print_Rooms()
+    print_Rooms()
 
 
 
