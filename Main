@@ -5,6 +5,7 @@ import logging
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
+# Rolls a die based on a given number or sides
 def roll(Nsides):
     roll=random.randint(1, Nsides)
     return(roll)
@@ -144,6 +145,7 @@ def make_map():
                                                ### Start Loot Generation ###
     # generates random numbers that gather loot for the rooms based on the max amount of loot
 
+# grabs a random piece of loot from the json dictionary
 def randomLootGenerator(randomLootList):
   return randomLootList[random.randrange(len(randomLootList))]
 
@@ -169,11 +171,12 @@ def randomLootGenerator(randomLootList):
 #         rooms_actual.append(roommod)
 #     return rooms, rooms_actual
 # makes a dictionary for the rooms
+# Variables to aid with filling rooms and storing blanks
 roomDict = {}
 roomList = []
 roomDictBlank = {}
-# Function uses a room number and the coords on the map to randomly generate a dictionary for that room which includes
-# position, type, and random loot. It then logs the rooms.
+
+# Function that records the position of all of the blank spaces to make parsing through the room list easier
 def assign_blank(i,j):
     roomPosBlank = []
     roomPosBlank.append(i)
@@ -182,6 +185,8 @@ def assign_blank(i,j):
     roomDict_copyBlank = roomDictBlank.copy()
     roomList.append(roomDict_copyBlank)
     return roomList
+# Function uses a room number and the coords on the map to randomly generate a dictionary for that room which includes
+# position, type, and random loot. It then logs the rooms.
 def assign_loot(roomNum, i, j):
     roomfiles = ["./Room1.json", "./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
     with open(roomfiles[roomNum-1]) as f:
@@ -201,8 +206,7 @@ def assign_loot(roomNum, i, j):
     roomDict_copy = roomDict.copy()
     roomList.append(roomDict_copy)
     return roomList
-
-
+# prints roomList in a human-readable way
 def print_Rooms():
     for i in range(len(roomList)):
         print(roomList[i], end = "\n")
@@ -390,7 +394,6 @@ def main():
     make_map()
     print_map()
     #for i in range(0,11): print(map[i].count(0)) #counts the free spaces
-    # assign_loottest()
     # print(rooms)
     # print(rooms_actual)
     final_loot_assign()
@@ -407,9 +410,9 @@ main()
 # Placement of characters
     # Make sure they're not directly on an island
     # Place them in a room that is actually a room
-# Creation of loot pools into a somewhat large dictionary // USED LOG... FINISHED \\
+# Creation of loot pools into a seperate dictionaries and compile that into a list // FINISHED (roomList) \\
     # Key bind position to hold loot // FINISHED \\
-    # Transfer of loot to character
+    # Transfer of loot to character  //
     # Figure out which loot will belong in which room
         # rarity of loot? -> make more instances of commoner items in the loot list
 # Crafting (Will be done with dictionaries and will start with very few recipies)
