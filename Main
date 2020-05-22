@@ -260,6 +260,7 @@ class Human:
     will_search = "N"
     will_interact = "N"
     will_attack = "N"
+    will_loot = "N"
     # initializes character with character stats
     def __init__(self, strength, AC, WS, BS, i, j):
         self.strength = strength
@@ -371,10 +372,16 @@ def check_Loot(name):
         if check_loot == "Y":
             i = name.i
             j = name.j
+            name.will_loot = "Y"
             print_Loot(i, j)
             break
         elif check_loot == "N":
+            name.will_loot = "N"
             break
+    return name.will_loot
+# Unfinished function that lets the player extract loot from a room.
+def loot(name):
+    return
 # def run_Turn(name):
     # pass
 
@@ -424,6 +431,8 @@ def main():
     move(engineer_1)
     move(engineer_1)
     position(engineer_1)
+    check_Loot(engineer_1)
+    loot(engineer_1)
     check_Loot(engineer_1)
 
 
