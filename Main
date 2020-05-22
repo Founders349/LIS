@@ -238,10 +238,15 @@ def final_loot_assign():
                 print("ERROR")
 # A function that prints the loot in a certain room
 # Returns error when finding loot of "zero room" will be fixed when placement is fixed
+# Requires more testing but works for most basic cases (check the ends tho)
 def print_Loot(i,j):
     listI = i * 10
-    listJ = j
+    if i == 0:
+        listJ = j
+    else:
+        listJ = j + i
     listNum = listI + listJ
+    print(listNum)
     roomLoot = roomList[listNum]["Loot"]
     print(roomLoot)
     return
@@ -397,7 +402,6 @@ def main():
     print(engineer_1.will_move)
     #move(engineer_1)
     #move(engineer_1)
-    position(engineer_1)
     #print(engineer_1.strength)
     #print(engineer_1.AC)
     #print(engineer_1.WS)
@@ -418,6 +422,8 @@ def main():
     print_Rooms()
     move(engineer_1)
     move(engineer_1)
+    move(engineer_1)
+    position(engineer_1)
     check_Loot(engineer_1)
 
 
