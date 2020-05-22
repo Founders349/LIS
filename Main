@@ -236,9 +236,16 @@ def final_loot_assign():
                 assign_loot(roomNUM, i, j)
             else:
                 print("ERROR")
-
-
-                                                ### Start PC's ###
+# A function that prints the loot in a certain room
+# Returns error when finding loot of "zero room" will be fixed when placement is fixed
+def print_Loot(i,j):
+    listI = i * 10
+    listJ = j
+    listNum = listI + listJ
+    roomLoot = roomList[listNum]["Loot"]
+    print(roomLoot)
+    return
+                                               ### Start PC's ###
 # defines Playable Characters
 class Human:
 
@@ -351,7 +358,18 @@ def move(name):
         elif move == "R":
             name.j += 1
         else: return
-
+# Unfinished function to ask to player if they will check the loot in their room and then display the loot in that room
+def check_Loot(name):
+    case = 0
+    while case == 0:
+        check_loot = input("Will You Check For Loot? Y/N ")
+        if check_loot == "Y":
+            i = name.i
+            j = name.j
+            print_Loot(i, j)
+            break
+        elif check_loot == "N":
+            break
 # def run_Turn(name):
     # pass
 
@@ -377,8 +395,8 @@ def main():
     print(engineer_1.isdead)
     check_Move(engineer_1)
     print(engineer_1.will_move)
-    move(engineer_1)
-    move(engineer_1)
+    #move(engineer_1)
+    #move(engineer_1)
     position(engineer_1)
     #print(engineer_1.strength)
     #print(engineer_1.AC)
@@ -398,6 +416,10 @@ def main():
     # print(rooms_actual)
     final_loot_assign()
     print_Rooms()
+    move(engineer_1)
+    move(engineer_1)
+    check_Loot(engineer_1)
+
 
 
 
@@ -421,7 +443,7 @@ main()
 # Movement into non-zero places
 # Actually attacking
 # Figure out logs
-    # Figure out where to store the logs // done \\
+    # Figure out where to store the logs // done (turns out its useless :p \\
 # Start up sequence
 # Stats of pretty much everything
 # BONDING AS ROOMMATES :)
