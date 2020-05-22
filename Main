@@ -169,10 +169,19 @@ def randomLootGenerator(randomLootList):
 #         rooms_actual.append(roommod)
 #     return rooms, rooms_actual
 # makes a dictionary for the rooms
-roomdict = {}
+roomDict = {}
 roomList = []
+roomDictBlank = {}
 # Function uses a room number and the coords on the map to randomly generate a dictionary for that room which includes
 # position, type, and random loot. It then logs the rooms.
+def assign_blank(i,j):
+    roomPosBlank = []
+    roomPosBlank.append(i)
+    roomPosBlank.append(j)
+    roomDictBlank["position"] = roomPosBlank
+    roomDict_copyBlank = roomDictBlank.copy()
+    roomList.append(roomDict_copyBlank)
+    return roomList
 def assign_loot(roomNum, i, j):
     roomfiles = ["./Room1.json", "./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
     with open(roomfiles[roomNum-1]) as f:
@@ -181,16 +190,16 @@ def assign_loot(roomNum, i, j):
     roomPos = []
     roomPos.append(i)
     roomPos.append(j)
-    roomdict["position"] = roomPos
-    roomdict["Type"] = (roomjson.get("Type"))
+    roomDict["position"] = roomPos
+    roomDict["Type"] = (roomjson.get("Type"))
     lootList = []
     for m in range(roomjson.get("MaxLoot")):
         loot = randomLootGenerator(roomjson.get("Loot"))
         lootList.append(loot)
-    roomdict["Loot"] = lootList
-    logging.info(roomdict)
-    roomdict_copy = roomdict.copy()
-    roomList.append(roomdict_copy)
+    roomDict["Loot"] = lootList
+    logging.info(roomDict)
+    roomDict_copy = roomDict.copy()
+    roomList.append(roomDict_copy)
     return roomList
 
 
@@ -202,7 +211,7 @@ def final_loot_assign():
     for i in range(rows):
         for j in range(cols):
             if map[i][j] == 0:
-                pass
+                assign_blank(i,j)
             elif map[i][j] == 1:
                 roomNUM = 1
                 assign_loot(roomNUM, i, j)
