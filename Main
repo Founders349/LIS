@@ -261,6 +261,7 @@ class Human:
     will_interact = "N"
     will_attack = "N"
     will_loot = "N"
+    inventory = []
     # initializes character with character stats
     def __init__(self, strength, AC, WS, BS, i, j):
         self.strength = strength
@@ -297,10 +298,10 @@ def check_Attack(name):
     case = 0
     while case == 0:
         will_attack = input("Will you attack? Y/N ")
-        if will_attack == "Y":
+        if will_attack.lower() == "y":
             name.will_attack = "Y"
             break
-        elif will_attack == "N":
+        elif will_attack.lower() == "n":
             name.will_attack = "N"
             break
         else: name.will_attack = "N"
@@ -322,10 +323,10 @@ def check_Move(name):
     case = 0
     while case == 0:
         will_move = input("Will you move? Y/N ")
-        if will_move == "Y":
+        if will_move.lower() == "y":
             name.will_move = "Y"
             break
-        elif will_move == "N":
+        elif will_move.lower() == "n":
             name.will_move = "N"
             break
         else:
@@ -334,9 +335,9 @@ def check_Move(name):
 # Asks player if they will search the room
 def check_Search(name):
     will_search = input("Will you search your current room? Y/N ")
-    if will_search == "Y":
+    if will_search.lower() == "y":
         name.will_search = "Y"
-    elif will_search == "N":
+    elif will_search.lower() == "n":
         name.will_search = "N"
     else:
         name.will_search = "N"
@@ -344,9 +345,9 @@ def check_Search(name):
 # Asks the player if they want to interact with the room
 def check_Interact(name):
     will_interact = input("Will you interact with the current room? Y/N ")
-    if will_interact == "Y":
+    if will_interact.lower() == "y":
         name.will_interact = "Y"
-    elif will_interact == "N":
+    elif will_interact.lower() == "n":
         name.will_interact = "N"
     else:
         name.will_interact = "N"
@@ -355,33 +356,59 @@ def check_Interact(name):
 def move(name):
     if (name.will_move == 'Y'):
         move = input("Which Direction?  ")
-        if move == "U":
+        if move.lower() == "u":
             name.i -= 1
-        elif move == "D":
+        elif move.lower() == "d":
             name.i += 1
-        elif move == "L":
+        elif move.lower() == "l":
             name.j -= 1
-        elif move == "R":
+        elif move.lower() == "r":
             name.j += 1
         else: return
-# Unfinished function to ask to player if they will check the loot in their room and then display the loot in that room
+# Function to ask to player if they will check the loot in their room and then display the loot in that room
 def check_Loot(name):
     case = 0
     while case == 0:
         check_loot = input("Will You Check For Loot? Y/N ")
-        if check_loot == "Y":
+        if check_loot.lower() == "y":
             i = name.i
             j = name.j
             name.will_loot = "Y"
             print_Loot(i, j)
             break
-        elif check_loot == "N":
+        elif check_loot.lower() == "n":
             name.will_loot = "N"
             break
     return name.will_loot
 # Unfinished function that lets the player extract loot from a room.
+# Needs more testing but looks promising
 def loot(name):
-    return
+    i = name.i
+    j = name.j
+    listI = i * 10
+    if i == 0:
+        listJ = j
+    else:
+        listJ = j + i
+    listNum = listI + listJ
+    roomLoot = roomList[listNum]["Loot"]
+    if roomLoot.count() == 0:
+        return
+    whichLoot = input("What will you take? ")
+    while whichLoot not in roomLoot:
+            if whichLoot.lower() == "nothing":
+                name.will_loot = "N"
+                break
+            else:
+                print(roomLoot)
+                whichLoot = input("What will you take? ")
+    if whichLoot.lower() == 'nothing':
+        return name.inventory
+    else:
+        name.inventory.append(whichLoot)
+        roomLoot.pop(roomLoot.index(whichLoot))
+    return name.inventory
+
 # def run_Turn(name):
     # pass
 
@@ -434,6 +461,8 @@ def main():
     check_Loot(engineer_1)
     loot(engineer_1)
     check_Loot(engineer_1)
+    loot(engineer_1)
+    print(engineer_1.inventory)
 
 
 
@@ -449,7 +478,7 @@ main()
     # Place them in a room that is actually a room
 # Creation of loot pools into a seperate dictionaries and compile that into a list // FINISHED (roomList) \\
     # Key bind position to hold loot // FINISHED \\
-    # Transfer of loot to character  //
+    # Transfer of loot to character  // Almost FINISHED \\
     # Figure out which loot will belong in which room
         # rarity of loot? -> make more instances of commoner items in the loot list
 # Crafting (Will be done with dictionaries and will start with very few recipies)
