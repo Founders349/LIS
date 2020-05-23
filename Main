@@ -16,15 +16,15 @@ def get_map_size():
     num_of_tiles = 0
     while num_of_tiles == 0:
         mapsize = input('Enter S/M/L: ')
-        if mapsize == 'S':
+        if mapsize.upper() == 'S':
             num_of_tiles = random.randrange(25, 35)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
-        elif mapsize == 'M':
+        elif mapsize.upper() == 'M':
             num_of_tiles = random.randrange(40, 60)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
-        elif mapsize == 'L':
+        elif mapsize.upper() == 'L':
             num_of_tiles = random.randrange(80, 100)
             print("The Map is", num_of_tiles, "Tiles")
             return num_of_tiles
@@ -47,8 +47,6 @@ rows, cols = map_step_one()
 
 # creates map as a list
 def map_step_two():
-    #arr = [[0 for i in range(cols)] for j in range(rows)]
-    #return arr
     map = [[0 for x in range(rows)] for x in range(cols)]
     return map
 # stores the map
@@ -141,7 +139,7 @@ def make_map():
     map_step_two()
     map_step_three()
     map_step_four(num_of_blanks, num_of_tiles)
-
+    print_map()
                                                ### Start Loot Generation ###
     # generates random numbers that gather loot for the rooms based on the max amount of loot
 
@@ -251,6 +249,16 @@ def print_Loot(i,j):
     print(roomLoot)
     return
                                                ### Start PC's ###
+# Function that puts the character in a random place on the map that is non-zero
+def randomPos(name):
+    if map[name.i][name.j] == 0:
+        newI = random.randrange(rows)
+        newJ = random.randrange(cols)
+        name.i = newI
+        name.j = newJ
+    if map[name.i][name.j] == 0:
+        randomPos(name)
+    return
 # defines Playable Characters
 class Human:
 
@@ -262,14 +270,15 @@ class Human:
     will_attack = "N"
     will_loot = "N"
     inventory = []
-    # initializes character with character stats
-    def __init__(self, strength, AC, WS, BS, i, j):
+    i = 0
+    j = 0
+
+    #initializes character with character stats
+    def __init__(self, strength, AC, WS, BS):
         self.strength = strength
         self.AC = AC
         self.WS = WS
         self.BS = BS
-        self.i = i
-        self.j = j
 
 # subclasses of Human
 class Engineer(Human):
@@ -352,17 +361,31 @@ def check_Interact(name):
     else:
         name.will_interact = "N"
     return name.will_interact
-# Moves the player
+# Moves the player shows the player where they can move, is not idiot proof lol
 def move(name):
+    moveableSpaces = []
+    u = name.i - 1
+    d = name.i + 1
+    r = name.j - 1
+    l = name.j + 1
+    if map[u][name.j] != 0 and map[u][name.j] != IndexError:
+        moveableSpaces.append("Up")
+    if map[d][name.j] != 0 and map[d][name.j] != IndexError:
+        moveableSpaces.append("Down")
+    if map[name.i][r] != 0 and map[name.i][r] != IndexError:
+        moveableSpaces.append("Right")
+    if map[name.i][l] != 0 and map[name.i][l] != IndexError:
+        moveableSpaces.append("Left")
     if (name.will_move == 'Y'):
-        move = input("Which Direction?  ")
-        if move.lower() == "u":
+        print("You can move", moveableSpaces)
+        move = input("Which direction will you move? ")
+        if move.lower() == "up":
             name.i -= 1
-        elif move.lower() == "d":
+        elif move.lower() == "down":
             name.i += 1
-        elif move.lower() == "l":
+        elif move.lower() == "left":
             name.j -= 1
-        elif move.lower() == "r":
+        elif move.lower() == "right":
             name.j += 1
         else: return
 # Function to ask to player if they will check the loot in their room and then display the loot in that room
@@ -420,20 +443,33 @@ def position(name):
     print(name.i, name.j)
 # tests all my code
 def main():
-    #print(num_of_tiles)
-    engineer_1 = Engineer(20,12,10,10, 0, 0)
-    attack(engineer_1, 10)
-    check_Attack(engineer_1)
-    print(engineer_1.will_attack)
-    isDead(engineer_1)
-    print(engineer_1.isdead)
-    print(engineer_1.health)
-    attack(engineer_1, 60)
-    #print(engineer_1.health)
-    isDead(engineer_1)
-    print(engineer_1.isdead)
+    print(num_of_tiles)
+    make_map()
+    #print_map()
+    final_loot_assign()
+    engineer_1 = Engineer(20,12,10,10)
+    position(engineer_1)
+    randomPos(engineer_1)
+    position(engineer_1)
+    print(map[engineer_1.i][engineer_1.j])
     check_Move(engineer_1)
-    print(engineer_1.will_move)
+    position(engineer_1)
+    move(engineer_1)
+    position(engineer_1)
+    move(engineer_1)
+    position(engineer_1)
+    #attack(engineer_1, 10)
+    #check_Attack(engineer_1)
+    #print(engineer_1.will_attack)
+    #isDead(engineer_1)
+    #print(engineer_1.isdead)
+    #print(engineer_1.health)
+    #attack(engineer_1, 60)
+    #print(engineer_1.health)
+    #isDead(engineer_1)
+    #print(engineer_1.isdead)
+    #check_Move(engineer_1)
+    #print(engineer_1.will_move)
     #move(engineer_1)
     #move(engineer_1)
     #print(engineer_1.strength)
@@ -447,22 +483,20 @@ def main():
     #print(num_of_blanks)
     #map_step_three()
     #map_step_four(num_of_blanks, num_of_tiles)
-    make_map()
-    print_map()
+    #print_map()
     #for i in range(0,11): print(map[i].count(0)) #counts the free spaces
     # print(rooms)
     # print(rooms_actual)
-    final_loot_assign()
-    print_Rooms()
-    move(engineer_1)
-    move(engineer_1)
-    move(engineer_1)
-    position(engineer_1)
-    check_Loot(engineer_1)
-    loot(engineer_1)
-    check_Loot(engineer_1)
-    loot(engineer_1)
-    print(engineer_1.inventory)
+    #print_Rooms()
+    #move(engineer_1)
+    #move(engineer_1)
+    #move(engineer_1)
+    #position(engineer_1)
+    #check_Loot(engineer_1)
+    #loot(engineer_1)
+    #check_Loot(engineer_1)
+    #loot(engineer_1)
+    #print(engineer_1.inventory)
 
 
 
