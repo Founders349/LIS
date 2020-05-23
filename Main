@@ -361,8 +361,7 @@ def check_Interact(name):
     else:
         name.will_interact = "N"
     return name.will_interact
-# Moves the player shows the player where they can move, is not idiot proof lol - people can try to move into zero
-# spaces THIS IS UNFINISHED
+# Moves the player shows the player where they can move needs a little more testing but it should work
 def move(name):
     moveableSpaces = []
     u = name.i - 1
@@ -396,7 +395,7 @@ def move(name):
                 name.i -= 1
             elif move.lower() == "down" and map[name.i+1][name.j] != 0 and name.i <= rows -1:
                 name.i += 1
-            elif move.lower() == "left" and map[name.i][name.j-1] != 0 and name.j >= 0:
+            elif move.lower() == "left" and map[name.i][name.j-1] != 0 and name.j >= 1:
                 name.j -= 1
             elif move.lower() == "right" and map[name.i][name.j+1] != 0 and name.j <= cols -1:
                 name.j += 1
