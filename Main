@@ -461,13 +461,6 @@ def main():
     make_map()
     final_loot_assign()
     engineer_1 = Engineer(20,12,10,10)
-    case = 0
-    while case == 0:
-        check_Move(engineer_1)
-        if engineer_1.will_move =="n":
-            break
-        move(engineer_1)
-        position(engineer_1)
     #position(engineer_1)
     #randomPos(engineer_1)
     #position(engineer_1)
