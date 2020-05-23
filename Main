@@ -315,7 +315,7 @@ def check_Attack(name):
             break
         else: name.will_attack = "N"
     return name.will_attack
-
+# deals the damage (hopefully this will be able to encompass modifiers lol
 def attack(name, damage):
     name.health = (name.health - damage)
     return name.health
@@ -361,33 +361,48 @@ def check_Interact(name):
     else:
         name.will_interact = "N"
     return name.will_interact
-# Moves the player shows the player where they can move, is not idiot proof lol
+# Moves the player shows the player where they can move, is not idiot proof lol - people can try to move into zero
+# spaces THIS IS UNFINISHED
 def move(name):
     moveableSpaces = []
     u = name.i - 1
     d = name.i + 1
-    r = name.j - 1
-    l = name.j + 1
-    if map[u][name.j] != 0 and map[u][name.j] != IndexError:
-        moveableSpaces.append("Up")
-    if map[d][name.j] != 0 and map[d][name.j] != IndexError:
-        moveableSpaces.append("Down")
-    if map[name.i][r] != 0 and map[name.i][r] != IndexError:
-        moveableSpaces.append("Right")
-    if map[name.i][l] != 0 and map[name.i][l] != IndexError:
-        moveableSpaces.append("Left")
+    r = name.j + 1
+    l = name.j - 1
+    try:
+        if u <= 0:
+            pass
+        elif map[u][name.j] != 0:
+            moveableSpaces.append("Up")
+        if d >= rows - 1:
+            pass
+        elif map[d][name.j] != 0:
+            moveableSpaces.append("Down")
+        if r >= rows - 1:
+            pass
+        elif  map[name.i][r] != 0:
+            moveableSpaces.append("Right")
+        if l <= 0:
+            pass
+        elif map[name.i][l] != 0:
+            moveableSpaces.append("Left")
+    except:
+        pass
     if (name.will_move == 'Y'):
         print("You can move", moveableSpaces)
         move = input("Which direction will you move? ")
-        if move.lower() == "up":
-            name.i -= 1
-        elif move.lower() == "down":
-            name.i += 1
-        elif move.lower() == "left":
-            name.j -= 1
-        elif move.lower() == "right":
-            name.j += 1
-        else: return
+        try:
+            if move.lower() == "up" and map[name.i-1][name.j] !=0 and name.i >= 0:
+                name.i -= 1
+            elif move.lower() == "down" and map[name.i+1][name.j] != 0 and name.i <= rows -1:
+                name.i += 1
+            elif move.lower() == "left" and map[name.i][name.j-1] != 0 and name.j >= 0:
+                name.j -= 1
+            elif move.lower() == "right" and map[name.i][name.j+1] != 0 and name.j <= cols -1:
+                name.j += 1
+            else: return
+        except:
+            pass
 # Function to ask to player if they will check the loot in their room and then display the loot in that room
 def check_Loot(name):
     case = 0
@@ -445,22 +460,19 @@ def position(name):
 def main():
     print(num_of_tiles)
     make_map()
-    #print_map()
     final_loot_assign()
     engineer_1 = Engineer(20,12,10,10)
-    position(engineer_1)
-    randomPos(engineer_1)
-    position(engineer_1)
-    print(map[engineer_1.i][engineer_1.j])
-    check_Move(engineer_1)
-    position(engineer_1)
-    move(engineer_1)
-    position(engineer_1)
-    move(engineer_1)
-    position(engineer_1)
-    move(engineer_1)
-    position(engineer_1)
-    move(engineer_1)
+    case = 0
+    while case == 0:
+        check_Move(engineer_1)
+        if engineer_1.will_move =="n":
+            break
+        move(engineer_1)
+        position(engineer_1)
+    #position(engineer_1)
+    #randomPos(engineer_1)
+    #position(engineer_1)
+    #print(map[engineer_1.i][engineer_1.j])
     #attack(engineer_1, 10)
     #check_Attack(engineer_1)
     #print(engineer_1.will_attack)
