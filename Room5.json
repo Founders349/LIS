@@ -1,5 +1,5 @@
 {
   "Type": "Airlock for now lol",
-  "Loot": ["Scalpel", "Med Pack", "Syringe", "Blood Bag"],
+  "Loot": ["scalpel", "med pack", "syringe", "blood bag"],
   "MaxLoot": 2
 }
