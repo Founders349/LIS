@@ -264,7 +264,6 @@ class Human:
     health = 50
     isdead = False
     will_move = "N"
-    will_search = "N"
     will_interact = "N"
     will_attack = "N"
     will_loot = "N"
@@ -326,17 +325,7 @@ def isDead(name):
         name.isdead = True
     else:
         name.isdead = False
-# Asks player if they will search the room
-def check_Search(name):
-    will_search = input("Will you search your current room? Y/N ")
-    if will_search.lower() == "y":
-        name.will_search = "Y"
-    elif will_search.lower() == "n":
-        name.will_search = "N"
-    else:
-        name.will_search = "N"
-    return name.will_search
-# Asks the player if they want to interact with the room
+# Asks the player if they want to interact with an object
 def check_Interact(name):
     will_interact = input("Will you interact with the current room? Y/N ")
     if will_interact.lower() == "y":
@@ -398,8 +387,9 @@ def move(name):
             else: return
         except:
             pass
-# Function to ask to player if they will check the loot in their room and then display the loot in that room
-def check_Loot(name):
+# Unfinished function that lets the player extract loot from a room after asking them if they will loot the room
+# Needs more testing but looks promising NEEDS TO LOOP AROUND
+def loot(name):
     case = 0
     while case == 0:
         check_loot = input("Will You Check For Loot? Y/N ")
@@ -411,11 +401,10 @@ def check_Loot(name):
             break
         elif check_loot.lower() == "n":
             name.will_loot = "N"
-            break
-    return name.will_loot
-# Unfinished function that lets the player extract loot from a room.
-# Needs more testing but looks promising
-def loot(name):
+            return
+        else:
+            name.will_loot = "N"
+            return
     i = name.i
     j = name.j
     listI = i * 10
@@ -425,10 +414,10 @@ def loot(name):
         listJ = j + i
     listNum = listI + listJ
     roomLoot = roomList[listNum]["Loot"]
-    if roomLoot.count() == 0:
+    if len(roomLoot) == 0:
         return
     whichLoot = input("What will you take? ")
-    while whichLoot not in roomLoot:
+    while whichLoot.lower() not in roomLoot:
             if whichLoot.lower() == "nothing":
                 name.will_loot = "N"
                 break
@@ -444,22 +433,22 @@ def loot(name):
 
 # def run_Turn(name):
     # pass
-
-    # will_attack = input("Will you attack? Y/N")
-    # if (will_attack == "Y"):
-    #    print("Okay")
 # Checks the position of a player
 def position(name):
     print(name.i, name.j)
-# tests all my code
+# tests all the code
 def main():
     print(num_of_tiles)
     make_map()
     final_loot_assign()
     engineer_1 = Engineer(20,12,10,10)
-    move(engineer_1)
+    #move(engineer_1)
     #position(engineer_1)
-    #randomPos(engineer_1)
+    randomPos(engineer_1)
+    position(engineer_1)
+    move(engineer_1)
+    loot(engineer_1)
+    print(engineer_1.inventory)
     #position(engineer_1)
     #print(map[engineer_1.i][engineer_1.j])
     #attack(engineer_1, 10)
