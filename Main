@@ -141,8 +141,7 @@ def make_map():
     map_step_four(num_of_blanks, num_of_tiles)
     print_map()
                                                ### Start Loot Generation ###
-    # generates random numbers that gather loot for the rooms based on the max amount of loot
-
+# generates random numbers that gather loot for the rooms based on the max amount of loot
 # grabs a random piece of loot from the json dictionary
 def randomLootGenerator(randomLootList):
   return randomLootList[random.randrange(len(randomLootList))]
