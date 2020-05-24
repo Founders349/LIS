@@ -327,20 +327,6 @@ def isDead(name):
         name.isdead = True
     else:
         name.isdead = False
-# Asks player to see if they will move
-def check_Move(name):
-    case = 0
-    while case == 0:
-        will_move = input("Will you move? Y/N ")
-        if will_move.lower() == "y":
-            name.will_move = "Y"
-            break
-        elif will_move.lower() == "n":
-            name.will_move = "N"
-            break
-        else:
-            name.will_move = "N"
-    return name.will_move
 # Asks player if they will search the room
 def check_Search(name):
     will_search = input("Will you search your current room? Y/N ")
@@ -363,6 +349,17 @@ def check_Interact(name):
     return name.will_interact
 # Moves the player shows the player where they can move needs a little more testing but it should work
 def move(name):
+    case = 0
+    while case == 0:
+        will_move = input("Will you move? Y/N ")
+        if will_move.lower() == "y":
+            name.will_move = "Y"
+            break
+        elif will_move.lower() == "n":
+            name.will_move = "N"
+            break
+        else:
+            name.will_move = "N"
     moveableSpaces = []
     u = name.i - 1
     d = name.i + 1
@@ -461,6 +458,7 @@ def main():
     make_map()
     final_loot_assign()
     engineer_1 = Engineer(20,12,10,10)
+    move(engineer_1)
     #position(engineer_1)
     #randomPos(engineer_1)
     #position(engineer_1)
@@ -525,7 +523,7 @@ main()
 # Crafting (Will be done with dictionaries and will start with very few recipies)
 # Server/ hosting / multiplayer
     # Turn mechanism
-# Movement into non-zero places
+# Movement into non-zero places // Finished \\
 # Actually attacking
 # Figure out logs
     # Figure out where to store the logs // done (turns out its useless :p \\
