@@ -268,6 +268,7 @@ class Human:
     will_attack = "N"
     will_loot = "N"
     inventory = []
+    win = False
     i = 0
     j = 0
 
@@ -431,8 +432,20 @@ def loot(name):
         roomLoot.pop(roomLoot.index(whichLoot))
     return name.inventory
 
-# def run_Turn(name):
-    # pass
+def checkWin(name):
+    if len(name.inventory) >= 5:
+        name.win = True
+    return name.win
+def run_Turn(name):
+    while name.win == False:
+        move(name)
+        loot(name)
+        position(name)
+        print(name.inventory)
+        checkWin(name)
+        if name.win == True:
+            break
+    print("Congrats, you have won!")
 # Checks the position of a player
 def position(name):
     print(name.i, name.j)
@@ -445,10 +458,11 @@ def main():
     #move(engineer_1)
     #position(engineer_1)
     randomPos(engineer_1)
-    position(engineer_1)
-    move(engineer_1)
-    loot(engineer_1)
-    print(engineer_1.inventory)
+    run_Turn(engineer_1)
+    #position(engineer_1)
+    #move(engineer_1)
+    #loot(engineer_1)
+    #print(engineer_1.inventory)
     #position(engineer_1)
     #print(map[engineer_1.i][engineer_1.j])
     #attack(engineer_1, 10)
