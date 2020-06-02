@@ -5,7 +5,7 @@ import logging
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
-# Rolls a die based on a given number or sides
+# Rolls a die based on a given number of sides
 def roll(Nsides):
     roll=random.randint(1, Nsides)
     return(roll)
