@@ -9,7 +9,7 @@ logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 def roll(Nsides):
     roll=random.randint(1, Nsides)
     return(roll)
-
+playerList = []
                                             ### Start Map Generation ###
 # gets the map size based of user input
 def get_map_size():
