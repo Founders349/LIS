@@ -199,7 +199,7 @@ def assign_loot(roomNum, i, j):
         loot = randomLootGenerator(roomjson.get("Loot"))
         lootList.append(loot)
     roomDict["Loot"] = lootList
-    # logging.info(roomDict)
+    #logging.info(roomDict)
     roomDict_copy = roomDict.copy()
     roomList.append(roomDict_copy)
     return roomList
@@ -293,6 +293,17 @@ def print_Loot(i,j):
     roomLoot = roomList[listNum]["Loot"]
     print(roomLoot)
     return
+
+def print_Cover(i,j):
+    listI = i * 10
+    if i == 0:
+        listJ = j
+    else:
+        listJ = j + i
+    listNum = listI + listJ
+    roomCover = roomList[listNum]["Cover"]
+    print(roomCover)
+    return
                                                ### Start PC's ###
 # Function that puts the character in a random place on the map that is non-zero
 def randomPos(name):
@@ -313,7 +324,9 @@ class Human:
     will_interact = "N"
     will_attack = "N"
     will_loot = "N"
+    will_cover = "N"
     inventory = []
+    cover = ""
     win = False
     i = 0
     j = 0
@@ -344,8 +357,10 @@ class Astronaut(Human):
     pass
 class Delegate(Human):
     pass
-
-
+# Reset the cover of a play
+def reset_cover(name):
+    name.cover = ""
+    return name.cover
 # basic attack setup
 # checks for attack
 def check_Attack(name):
@@ -425,12 +440,16 @@ def move(name):
         try:
             if move.lower() == "up" and map[name.i-1][name.j] !=0 and name.i >= 0:
                 name.i -= 1
+                reset_cover(name)
             elif move.lower() == "down" and map[name.i+1][name.j] != 0 and name.i <= rows -1:
                 name.i += 1
+                reset_cover(name)
             elif move.lower() == "left" and map[name.i][name.j-1] != 0 and name.j >= 1:
                 name.j -= 1
+                reset_cover(name)
             elif move.lower() == "right" and map[name.i][name.j+1] != 0 and name.j <= cols -1:
                 name.j += 1
+                reset_cover(name)
             else: return
         except:
             pass
@@ -477,6 +496,42 @@ def loot(name):
         name.inventory.append(whichLoot)
         roomLoot.pop(roomLoot.index(whichLoot))
     return name.inventory
+# basic check cover thingy will probably get removed. STILL NEEDS TURN OVER TABLES AND SHIT NOT FINISHED
+def cover(name):
+    case = 0
+    while case == 0:
+        will_cover=input("Will you attempt to get behind cover? Y/N ")
+        if will_cover.lower() == "y":
+            i = name.i
+            j = name.j
+            print_Cover(i,j)
+            break
+        elif will_cover.lower() == "n":
+            return name.will_cover == "N"
+    i = name.i
+    j = name.j
+    listI = i * 10
+    if i == 0:
+        listJ = j
+    else:
+        listJ = j + i
+    listNum = listI + listJ
+    roomCover = roomList[listNum]["Cover"]
+    if len(roomCover) == 1 and "No-Cover" in roomCover:
+        return
+    elif len(roomCover) == roomCover.count("No-Cover"):
+        return
+    whichCover = input("Which Cover? ")
+    while whichCover not in roomCover:
+        if whichCover.lower() == "nothing":
+            name.will_cover= "N"
+            return name.will_cover
+        else:
+            print(roomCover)
+            whichCover = input("Which Cover? ")
+    name.cover = whichCover
+    return name.cover
+
 
 def checkWin(name):
     if len(name.inventory) >= 5:
@@ -502,12 +557,13 @@ def main():
     final_loot_assign()
     final_cover_assign()
     print_Rooms()
-    #engineer_1 = Engineer(20,12,10,10)
+    engineer_1 = Engineer(20,12,10,10)
     #print_map()
-
     #move(engineer_1)
     #position(engineer_1)
-    #randomPos(engineer_1)
+    randomPos(engineer_1)
+    cover(engineer_1)
+    print(engineer_1.cover)
     #run_Turn(engineer_1)
     #position(engineer_1)
     #move(engineer_1)
