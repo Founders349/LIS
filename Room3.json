@@ -1,5 +1,7 @@
 {
   "Type": "Storage",
   "Loot": ["nuts", "bolts", "screwdriver", "hammer", "wrench", "screws", "nails", "duct tape"],
-  "MaxLoot": 4
+  "MaxLoot": 4,
+  "MaxCover": 3,
+  "Cover": ["Half-Cover", "Room 3", "Randos"]
 }
