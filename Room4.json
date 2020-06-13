@@ -3,5 +3,5 @@
   "Loot": ["key card", "uniform", "baton"],
   "MaxLoot": 1,
   "MaxCover": 1,
-  "Cover": ["Half-Cover","Room 4"]
+  "Cover": ["Half-Cover","No-Cover"]
 }
