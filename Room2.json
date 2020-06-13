@@ -3,5 +3,5 @@
   "Loot": ["attchments", "guns?"],
   "MaxLoot": 1,
   "MaxCover": 1,
-  "Cover": ["Half-Cover", "Room 2"]
+  "Cover": ["Half-Cover", "No-Cover"]
 }
