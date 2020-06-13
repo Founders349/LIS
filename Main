@@ -199,10 +199,56 @@ def assign_loot(roomNum, i, j):
         loot = randomLootGenerator(roomjson.get("Loot"))
         lootList.append(loot)
     roomDict["Loot"] = lootList
-    logging.info(roomDict)
+    # logging.info(roomDict)
     roomDict_copy = roomDict.copy()
     roomList.append(roomDict_copy)
     return roomList
+# This function randomly assigns cover which will be used for attacking and defending. This could probably go in assign
+# loot but I perfer to have to functions in case I want to remove this feature.
+def assign_cover(roomNum,i,j):
+    roomfiles = ["./Room1.json", "./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
+    with open(roomfiles[roomNum-1]) as f:
+        roomjson = json.load(f)
+    assert isinstance(roomjson, dict)
+    listI = i * 10
+    if i == 0:
+        listJ = j
+    else:
+        listJ = j + i
+    listNum = listI + listJ
+    coverList = []
+    for m in range(roomjson.get("MaxCover")):
+        cover = randomLootGenerator(roomjson.get("Cover"))
+        coverList.append(cover)
+    roomList[listNum]["cover"] = coverList
+    return roomList
+def final_cover_assign():
+    for i in range(rows):
+        for j in range(cols):
+            if map[i][j] == 0:
+                pass
+            elif map[i][j] == 1:
+                roomNUM = 1
+                assign_cover(roomNUM, i, j)
+            elif map[i][j] == 2:
+                roomNUM = 2
+                assign_cover(roomNUM, i, j)
+            elif map[i][j] == 3:
+                roomNUM = 3
+                assign_cover(roomNUM, i, j)
+            elif map[i][j] == 4:
+                roomNUM = 4
+                assign_cover(roomNUM, i, j)
+            elif map[i][j] == 5:
+                roomNUM = 5
+                assign_cover(roomNUM, i, j)
+            elif map[i][j] == 6:
+                roomNUM = 6
+                assign_cover(roomNUM, i, j)
+            else:
+                print("ERROR")
+
+
 # prints roomList in a human-readable way
 def print_Rooms():
     for i in range(len(roomList)):
@@ -243,7 +289,7 @@ def print_Loot(i,j):
     else:
         listJ = j + i
     listNum = listI + listJ
-    print(listNum)
+    #print(listNum)
     roomLoot = roomList[listNum]["Loot"]
     print(roomLoot)
     return
@@ -452,13 +498,17 @@ def position(name):
 # tests all the code
 def main():
     print(num_of_tiles)
-    make_map()
-    final_loot_assign()
-    engineer_1 = Engineer(20,12,10,10)
+    make_map() # I think this is printing the map
+    final_loot_assign() 
+    final_cover_assign()
+    print_Rooms()
+    #engineer_1 = Engineer(20,12,10,10)
+    #print_map()
+
     #move(engineer_1)
     #position(engineer_1)
-    randomPos(engineer_1)
-    run_Turn(engineer_1)
+    #randomPos(engineer_1)
+    #run_Turn(engineer_1)
     #position(engineer_1)
     #move(engineer_1)
     #loot(engineer_1)
