@@ -435,7 +435,7 @@ def move(name):
         except:
             pass
 # Unfinished function that lets the player extract loot from a room after asking them if they will loot the room
-# Needs more testing but looks promising NEEDS TO LOOP AROUND
+# Needs more testing but looks promising NEEDS TO LOOP AROUND -> This might happen in the Calling portion
 def loot(name):
     case = 0
     while case == 0:
@@ -499,7 +499,7 @@ def position(name):
 def main():
     print(num_of_tiles)
     make_map() # I think this is printing the map
-    final_loot_assign() 
+    final_loot_assign()
     final_cover_assign()
     print_Rooms()
     #engineer_1 = Engineer(20,12,10,10)
