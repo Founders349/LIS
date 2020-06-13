@@ -220,7 +220,7 @@ def assign_cover(roomNum,i,j):
     for m in range(roomjson.get("MaxCover")):
         cover = randomLootGenerator(roomjson.get("Cover"))
         coverList.append(cover)
-    roomList[listNum]["cover"] = coverList
+    roomList[listNum]["Cover"] = coverList
     return roomList
 def final_cover_assign():
     for i in range(rows):
@@ -573,6 +573,8 @@ main()
     # Figure out which loot will belong in which room
         # rarity of loot? -> make more instances of commoner items in the loot list
 # Crafting (Will be done with dictionaries and will start with very few recipies)
+# Turn Phases
+    # this would be like action reaction and stuff like that and the player would have choose which one to do.
 # Server/ hosting / multiplayer
     # Turn mechanism
 # Movement into non-zero places // Finished \\
