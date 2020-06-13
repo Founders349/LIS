@@ -3,5 +3,5 @@
   "Loot": ["nuts", "bolts", "screwdriver", "hammer", "wrench", "screws", "nails", "duct tape"],
   "MaxLoot": 4,
   "MaxCover": 3,
-  "Cover": ["Half-Cover", "Room 3", "Randos"]
+  "Cover": ["Half-Cover", "No-Cover"]
 }
