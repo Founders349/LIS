@@ -2,5 +2,7 @@
   "Type": "Medbay",
   "Loot": ["scalpel", "med pack", "syringe", "blood bag"],
   "MaxLoot": 2,
-  "Foes": ["Are", "We", "Gonna", "Do", "Foes?"]
+  "Foes": ["Are", "We", "Gonna", "Do", "Foes?"],
+  "MaxCover": 1,
+  "Cover": ["Half-Cover", "No-Cover"]
 }
