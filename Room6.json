@@ -1,5 +1,7 @@
 {
   "Type": "Lab",
   "Loot": ["chemicals", "m", "s", "b"],
-  "MaxLoot": 2
+  "MaxLoot": 2,
+  "MaxCover": 1,
+  "Cover": ["Half-Cover","3/4-Cover"]
 }
