@@ -1,5 +1,7 @@
 {
   "Type": "Armory",
   "Loot": ["attchments", "guns?"],
-  "MaxLoot": 1
+  "MaxLoot": 1,
+  "MaxCover": 1,
+  "Cover": ["Half-Cover", "Room 2"]
 }
