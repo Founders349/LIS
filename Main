@@ -573,12 +573,14 @@ main()
     # Figure out which loot will belong in which room
         # rarity of loot? -> make more instances of commoner items in the loot list
 # Crafting (Will be done with dictionaries and will start with very few recipies)
+# Make Cover that has to be interacted with for it to be cover. (Tables)
 # Turn Phases
     # this would be like action reaction and stuff like that and the player would have choose which one to do.
 # Server/ hosting / multiplayer
     # Turn mechanism
 # Movement into non-zero places // Finished \\
 # Actually attacking
+    # Attacking buffs
 # Figure out logs
     # Figure out where to store the logs // done (turns out its useless :p \\
 # Start up sequence
