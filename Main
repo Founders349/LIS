@@ -517,10 +517,14 @@ def cover(name):
         listJ = j + i
     listNum = listI + listJ
     roomCover = roomList[listNum]["Cover"]
-    if len(roomCover) == 1 and "No-Cover" in roomCover:
+    if len(roomCover) == roomCover.count("No-Cover"):
+        reset_cover(name)
         return
-    elif len(roomCover) == roomCover.count("No-Cover"):
-        return
+    elif roomCover.count("No-Cover") > 0:
+        x = roomCover.count("No-Cover")
+        for x in roomCover:
+            y = roomCover.index("No-Cover")
+            roomCover.pop(y)
     whichCover = input("Which Cover? ")
     while whichCover not in roomCover:
         if whichCover.lower() == "nothing":
