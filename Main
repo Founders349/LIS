@@ -246,7 +246,7 @@ def final_cover_assign():
                 roomNUM = 6
                 assign_cover(roomNUM, i, j)
             else:
-                print("ERROR")
+                pass
 
 
 # prints roomList in a human-readable way
@@ -278,7 +278,7 @@ def final_loot_assign():
                 roomNUM = 6
                 assign_loot(roomNUM, i, j)
             else:
-                print("ERROR")
+                pass
 # A function that prints the loot in a certain room
 # Returns error when finding loot of "zero room" will be fixed when placement is fixed
 # Requires more testing but works for most basic cases (check the ends tho)
