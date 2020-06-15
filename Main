@@ -496,7 +496,8 @@ def loot(name):
         name.inventory.append(whichLoot)
         roomLoot.pop(roomLoot.index(whichLoot))
     return name.inventory
-# basic check cover thingy will probably get removed. STILL NEEDS TURN OVER TABLES AND SHIT NOT FINISHED
+# This function asks the player if they would like to cover themselves and shows the player the cover that is available
+# May still need work.
 def cover(name):
     case = 0
     while case == 0:
@@ -630,6 +631,7 @@ main()
 
 ### TO DO LIST ###
 # Function to make players and auto roll them
+# Check room function that is different from loot and shows interactable (Tables to overturn lol and cover of room)
 # Placement of characters //Finished\\
     # Make sure they're not directly on an island //Finished\\
     # Place them in a room that is actually a room //Finished\\
