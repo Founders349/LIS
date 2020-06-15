@@ -554,13 +554,18 @@ def run_Turn(name):
 # Checks the position of a player
 def position(name):
     print(name.i, name.j)
+def start_up():
+    make_map()
+    final_loot_assign()
+    final_cover_assign()
+
 # tests all the code
 def main():
     print(num_of_tiles)
     make_map() # I think this is printing the map
     final_loot_assign()
     final_cover_assign()
-    print_Rooms()
+    #print_Rooms()
     engineer_1 = Engineer(20,12,10,10)
     #print_map()
     #move(engineer_1)
@@ -624,12 +629,13 @@ main()
 # NEW BAND NAME THE FEET OF CHILDREN
 
 ### TO DO LIST ###
-# Placement of characters
-    # Make sure they're not directly on an island
-    # Place them in a room that is actually a room
+# Function to make players and auto roll them
+# Placement of characters //Finished\\
+    # Make sure they're not directly on an island //Finished\\
+    # Place them in a room that is actually a room //Finished\\
 # Creation of loot pools into a seperate dictionaries and compile that into a list // FINISHED (roomList) \\
     # Key bind position to hold loot // FINISHED \\
-    # Transfer of loot to character  // Almost FINISHED \\
+    # Transfer of loot to character  // FINISHED \\
     # Figure out which loot will belong in which room
         # rarity of loot? -> make more instances of commoner items in the loot list
 # Crafting (Will be done with dictionaries and will start with very few recipies)
