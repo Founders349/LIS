@@ -328,8 +328,9 @@ def reroll(list2):
     num_1= sum(list2[num][1]) - min(list2[num][1])
     list2[num] = (num_1, list2[num][1])
     return list2
-# Maybe just do modifer????
+
 # Lets the player choose what stats they want where
+# Does not prevent player from using their best roll for all of it MUST BE FIXED
 def orient_stats(list2):
     list3 = []
     first= int(input("Which roll should be STR? "))
