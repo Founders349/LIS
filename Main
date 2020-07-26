@@ -4,7 +4,8 @@ import json
 import logging
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
-
+#FOR TESTS PLAYERS ARE DEFINED HERE
+players = 1
 # Rolls a die based on a given number of sides
 def roll(Nsides):
     roll=random.randint(1, Nsides)
@@ -319,33 +320,48 @@ def roll(x):
     return abilityScore, list1
 # Lets the player reroll some of their stats
 def reroll(list2):
-    reroll = input("Would you like to reroll? ")
-    if  reroll == 'yes':
-        whichRoll = input("Which roll? ")
-        num = int(whichRoll) - 1
-        list2[num][1].remove(min(list2[num][1]))
-        list2[num][1].append(random.randint(1,6))
-        list2[num][1].sort(),
-        num_1= sum(list2[num][1]) - min(list2[num][1])
-        list2[num] = (num_1, list2[num][1])
-        return list2
-    if reroll == 'no':
-        return
-    else: return("Done")
+    whichRoll = input("Which roll? ")
+    num = int(whichRoll) - 1
+    list2[num][1].remove(min(list2[num][1]))
+    list2[num][1].append(random.randint(1,6))
+    list2[num][1].sort(),
+    num_1= sum(list2[num][1]) - min(list2[num][1])
+    list2[num] = (num_1, list2[num][1])
+    return list2
+# Maybe just do modifer????
+# Lets the player choose what stats they want where
+def orient_stats(list2):
+    list3 = []
+    first= int(input("Which roll should be STR? "))
+    list3.append(list2[first-1][0])
+    second = int(input("Which roll should be AC? "))
+    list3.append(list2[second-1][0])
+    third = int(input("Which roll should be WS? "))
+    list3.append(list2[third-1][0])
+    fourth = int(input("Which roll should be BS? "))
+    list3.append(list2[fourth-1][0])
+    return list3
 # creates the character
 def character_create(type):
-    roll(1), roll(2), roll(3), roll(4), roll(5), roll(6)
-    list2 = [roll(1) ,roll(2),roll(3),roll(4),roll(5),roll(6)]
-    # create the reroll feature for a number of times
-    # organize the rolls how the player wants it
-    # create the character based on those stats
+    roll(1), roll(2), roll(3), roll(4)
+    list2 = [roll(1) ,roll(2),roll(3),roll(4)]
     print(list2)
-    reroll(list2)
-    print(list2)
-
-
-
-
+    max_reroll = 3
+    for i in range(max_reroll):
+        ans = input("Would you like to reroll? ")
+        if ans.lower() == "yes":
+            reroll(list2)
+            print(list2)
+        elif ans.lower() == "no":
+            break
+    list3 = orient_stats(list2)
+    STR = list3[0]
+    AC = list3[1]
+    WS = list3[2]
+    BS = list3[3]
+    # This needs to be changes to fit the number of players
+    player1 = type(STR,AC,WS,BS)
+    return player1
 # Function that puts the character in a random place on the map that is non-zero
 def randomPos(name):
     if map[name.i][name.j] == 0:
@@ -603,22 +619,25 @@ def start_up():
 
 # tests all the code
 def main():
-    character_create()
+    # For the initialization of characters, make max number of players a list then create players based off of that list
+    # which will be player_list and have a function that assigns the characters based on what the player wants to that
+    # list slot so it will be easier fr turns
+    player1 = character_create(Engineer)
     #print(num_of_tiles)
-    #make_map() # I think this is printing the map
+    make_map() # I think this is printing the map
     #final_loot_assign()
     #final_cover_assign()
     #print_Rooms()
     #engineer_1 = Engineer(20,12,10,10)
     #print_map()
-    #move(engineer_1)
+    #move(player1)
     #position(engineer_1)
-    #randomPos(engineer_1)
+    randomPos(player1)
     #cover(engineer_1)
     #print(engineer_1.cover)
     #run_Turn(engineer_1)
     #position(engineer_1)
-    #move(engineer_1)
+    move(player1)
     #loot(engineer_1)
     #print(engineer_1.inventory)
     #position(engineer_1)
@@ -694,5 +713,6 @@ main()
 # Figure out logs
     # Figure out where to store the logs // done (turns out its useless :p \\
 # Start up sequence
+    # How many players and adding them to a list
 # Stats of pretty much everything
 # BONDING AS ROOMMATES :)
