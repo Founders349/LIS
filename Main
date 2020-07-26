@@ -305,6 +305,47 @@ def print_Cover(i,j):
     print(roomCover)
     return
                                                ### Start PC's ###
+# Creates the Character
+    # Rolls stats
+def roll(x):
+    dOne = random.randint(1, 6)
+    dTwo = random.randint(1, 6)
+    dThree = random.randint(1, 6)
+    dFour = random.randint(1, 6)
+    dTotal = dOne + dTwo + dThree + dFour
+    list1 = [dOne, dTwo, dThree, dFour]
+    list1.sort()
+    abilityScore= dTotal - min(list1)
+    return abilityScore, list1
+# Lets the player reroll some of their stats
+def reroll(list2):
+    reroll = input("Would you like to reroll? ")
+    if  reroll == 'yes':
+        whichRoll = input("Which roll? ")
+        num = int(whichRoll) - 1
+        list2[num][1].remove(min(list2[num][1]))
+        list2[num][1].append(random.randint(1,6))
+        list2[num][1].sort(),
+        num_1= sum(list2[num][1]) - min(list2[num][1])
+        list2[num] = (num_1, list2[num][1])
+        return list2
+    if reroll == 'no':
+        return
+    else: return("Done")
+# creates the character
+def character_create(type):
+    roll(1), roll(2), roll(3), roll(4), roll(5), roll(6)
+    list2 = [roll(1) ,roll(2),roll(3),roll(4),roll(5),roll(6)]
+    # create the reroll feature for a number of times
+    # organize the rolls how the player wants it
+    # create the character based on those stats
+    print(list2)
+    reroll(list2)
+    print(list2)
+
+
+
+
 # Function that puts the character in a random place on the map that is non-zero
 def randomPos(name):
     if map[name.i][name.j] == 0:
@@ -562,18 +603,19 @@ def start_up():
 
 # tests all the code
 def main():
-    print(num_of_tiles)
-    make_map() # I think this is printing the map
-    final_loot_assign()
-    final_cover_assign()
+    character_create()
+    #print(num_of_tiles)
+    #make_map() # I think this is printing the map
+    #final_loot_assign()
+    #final_cover_assign()
     #print_Rooms()
-    engineer_1 = Engineer(20,12,10,10)
+    #engineer_1 = Engineer(20,12,10,10)
     #print_map()
     #move(engineer_1)
     #position(engineer_1)
-    randomPos(engineer_1)
-    cover(engineer_1)
-    print(engineer_1.cover)
+    #randomPos(engineer_1)
+    #cover(engineer_1)
+    #print(engineer_1.cover)
     #run_Turn(engineer_1)
     #position(engineer_1)
     #move(engineer_1)
