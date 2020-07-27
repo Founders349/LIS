@@ -4,13 +4,13 @@ import json
 import logging
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
-#FOR TESTS PLAYERS ARE DEFINED HERE
-players = 1
+
+playerList = []
+availableCharacters = ["Engineer", "Doctor", "Veteran", "Technician", "Chemist", "Astronaut", "Delegate"]
 # Rolls a die based on a given number of sides
 def roll(Nsides):
     roll=random.randint(1, Nsides)
     return(roll)
-playerList = []
                                             ### Start Map Generation ###
 # gets the map size based of user input
 def get_map_size():
@@ -343,7 +343,7 @@ def orient_stats(list2):
     list3.append(list2[fourth-1][0])
     return list3
 # creates the character
-def character_create(type):
+def character_create(type, player):
     roll(1), roll(2), roll(3), roll(4)
     list2 = [roll(1) ,roll(2),roll(3),roll(4)]
     print(list2)
@@ -360,9 +360,20 @@ def character_create(type):
     AC = list3[1]
     WS = list3[2]
     BS = list3[3]
-    # This needs to be changes to fit the number of players
-    player1 = type(STR,AC,WS,BS)
-    return player1
+    # This needs to be changed to fit the number of players
+    player = type(STR,AC,WS,BS)
+    return player
+# This function makes all of the playable characters and then adds them to a list of players
+def make_players():
+    players = int(input("How many players? "))
+    for i in range(players):
+        playerNum = str(len(playerList)+1)
+        print("Player " + playerNum + ", what would you like to be? " + str(availableCharacters))
+        while type not in availableCharacters:
+            type= input()
+        availableCharacters.remove(type)
+        playerList.append(character_create(type,playerNum))
+
 # Function that puts the character in a random place on the map that is non-zero
 def randomPos(name):
     if map[name.i][name.j] == 0:
@@ -623,9 +634,10 @@ def main():
     # For the initialization of characters, make max number of players a list then create players based off of that list
     # which will be player_list and have a function that assigns the characters based on what the player wants to that
     # list slot so it will be easier fr turns
-    player1 = character_create(Engineer)
+    # player1 = character_create(Engineer)
     #print(num_of_tiles)
     make_map() # I think this is printing the map
+    make_players()
     #final_loot_assign()
     #final_cover_assign()
     #print_Rooms()
@@ -633,12 +645,12 @@ def main():
     #print_map()
     #move(player1)
     #position(engineer_1)
-    randomPos(player1)
+    #randomPos(player1)
     #cover(engineer_1)
     #print(engineer_1.cover)
     #run_Turn(engineer_1)
     #position(engineer_1)
-    move(player1)
+    #move(player1)
     #loot(engineer_1)
     #print(engineer_1.inventory)
     #position(engineer_1)
