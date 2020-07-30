@@ -2,6 +2,7 @@
 import random
 import json
 import logging
+import sys
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
@@ -342,6 +343,10 @@ def orient_stats(list2):
     fourth = int(input("Which roll should be BS? "))
     list3.append(list2[fourth-1][0])
     return list3
+# Converts a string to a class
+def str_to_class(classname):
+    return getattr(sys.modules[__name__], classname)
+
 # creates the character
 def character_create(type, player):
     roll(1), roll(2), roll(3), roll(4)
@@ -360,7 +365,7 @@ def character_create(type, player):
     AC = list3[1]
     WS = list3[2]
     BS = list3[3]
-    # This needs to be changed to fit the number of players
+    type = str_to_class(type)
     player = type(STR,AC,WS,BS)
     return player
 # This function makes all of the playable characters and then adds them to a list of players
@@ -369,8 +374,9 @@ def make_players():
     for i in range(players):
         playerNum = str(len(playerList)+1)
         print("Player " + playerNum + ", what would you like to be? " + str(availableCharacters))
+        type = ""
         while type not in availableCharacters:
-            type= input()
+            type = input()
         availableCharacters.remove(type)
         playerList.append(character_create(type,playerNum))
 
@@ -638,6 +644,8 @@ def main():
     #print(num_of_tiles)
     make_map() # I think this is printing the map
     make_players()
+    randomPos(Engineer)
+    print(Engineer.i,Engineer.j)
     #final_loot_assign()
     #final_cover_assign()
     #print_Rooms()
