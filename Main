@@ -331,22 +331,33 @@ def reroll(list2):
     return list2
 
 # Lets the player choose what stats they want where
-# Does not prevent player from using their best roll for all of it MUST BE FIXED
+# Needs to let the user put nothing or text without breaking lol
 def orient_stats(list2):
     list3 = []
-    first= int(input("Which roll should be STR? "))
+    availRolls = [1,2,3,4]
+    first = 0
+    while first not in availRolls:
+        first= int(input("Which roll should be STR? "))
     list3.append(list2[first-1][0])
-    second = int(input("Which roll should be AC? "))
+    availRolls.pop(availRolls.index(first))
+    second = 0
+    while second not in availRolls:
+        second = int(input("Which roll should be AC? "))
     list3.append(list2[second-1][0])
-    third = int(input("Which roll should be WS? "))
+    availRolls.pop(availRolls.index(second))
+    third = 0
+    while third not in availRolls:
+        third = int(input("Which roll should be WS? "))
     list3.append(list2[third-1][0])
-    fourth = int(input("Which roll should be BS? "))
+    availRolls.pop(availRolls.index(third))
+    fourth = 0
+    while fourth not in availRolls:
+        fourth = int(input("Which roll should be BS? "))
     list3.append(list2[fourth-1][0])
     return list3
 # Converts a string to a class
 def str_to_class(classname):
     return getattr(sys.modules[__name__], classname)
-
 # creates the character
 def character_create(type, player):
     roll(1), roll(2), roll(3), roll(4)
@@ -646,6 +657,7 @@ def main():
     make_players()
     randomPos(Engineer)
     print(Engineer.i,Engineer.j)
+    print(playerList)
     #final_loot_assign()
     #final_cover_assign()
     #print_Rooms()
