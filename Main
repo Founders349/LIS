@@ -428,10 +428,12 @@ class Human:
 class Engineer(Human):
     equiptment = "maintenance tool"
     skill = "Override"
+    name = "Engineer"
 class Doctor(Human):
     equiptment = "Meds"
     equiptment_amount = 2
     skill = "PHD", "Blood Timer"
+    name = "Doctor"
 class Veteran(Human):
     equiptment = "Deagle"
     skill = "Pilot"
@@ -625,19 +627,15 @@ def cover(name):
 
 
 def checkWin(name):
-    if len(name.inventory) >= 5:
+    if len(name.inventory) >= 2:
         name.win = True
     return name.win
 def run_Turn(name):
-    while name.win == False:
-        move(name)
-        loot(name)
-        position(name)
-        print(name.inventory)
-        checkWin(name)
-        if name.win == True:
-            break
-    print("Congrats, you have won!")
+    print(name.name, ", it is your turn.")
+    move(name)
+    loot(name)
+    position(name)
+    print(name.inventory)
 # Checks the position of a player
 def position(name):
     print(name.i, name.j)
@@ -645,19 +643,33 @@ def start_up():
     make_map()
     final_loot_assign()
     final_cover_assign()
+    make_players()
+    for player in playerList:
+        randomPos(player)
+#actually runs the game
+def playGame():
+    game = "unwon"
+    while game == "unwon":
+        for player in playerList:
+            run_Turn(player)
+            checkWin(player)
+            if player.win == True:
+                print("TITTIES")
+                return
 
 # tests all the code
 def main():
     # For the initialization of characters, make max number of players a list then create players based off of that list
     # which will be player_list and have a function that assigns the characters based on what the player wants to that
     # list slot so it will be easier fr turns
-    # player1 = character_create(Engineer)
+    start_up()
+    playGame()
     #print(num_of_tiles)
-    make_map() # I think this is printing the map
-    make_players()
-    randomPos(Engineer)
-    print(Engineer.i,Engineer.j)
-    print(playerList)
+    #make_map() # I think this is printing the map
+    #make_players()
+    #randomPos(Engineer)
+    #print(Engineer.i,Engineer.j)
+    #print(playerList)
     #final_loot_assign()
     #final_cover_assign()
     #print_Rooms()
