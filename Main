@@ -404,6 +404,15 @@ def randomPos(name):
 # defines Playable Characters
 class Human:
 
+    #initializes character with character stats
+    def __init__(self, strength, AC, WS, BS):
+        self.strength = strength
+        self.AC = AC
+        self.WS = WS
+        self.BS = BS
+
+# subclasses of Human
+class Engineer(Human):
     health = 50
     isdead = False
     will_move = "N"
@@ -416,34 +425,100 @@ class Human:
     win = False
     i = 0
     j = 0
-
-    #initializes character with character stats
-    def __init__(self, strength, AC, WS, BS):
-        self.strength = strength
-        self.AC = AC
-        self.WS = WS
-        self.BS = BS
-
-# subclasses of Human
-class Engineer(Human):
     equiptment = "maintenance tool"
     skill = "Override"
     name = "Engineer"
 class Doctor(Human):
+    health = 50
+    isdead = False
+    will_move = "N"
+    will_interact = "N"
+    will_attack = "N"
+    will_loot = "N"
+    will_cover = "N"
+    inventory = []
+    cover = ""
+    win = False
+    i = 0
+    j = 0
     equiptment = "Meds"
     equiptment_amount = 2
     skill = "PHD", "Blood Timer"
     name = "Doctor"
 class Veteran(Human):
+    health = 50
+    isdead = False
+    will_move = "N"
+    will_interact = "N"
+    will_attack = "N"
+    will_loot = "N"
+    will_cover = "N"
+    inventory = []
+    cover = ""
+    win = False
+    i = 0
+    j = 0
     equiptment = "Deagle"
     skill = "Pilot"
 class Technician(Human):
+    health = 50
+    isdead = False
+    will_move = "N"
+    will_interact = "N"
+    will_attack = "N"
+    will_loot = "N"
+    will_cover = "N"
+    inventory = []
+    cover = ""
+    win = False
+    i = 0
+    j = 0
+    name = "Technician"
     pass
 class Chemist(Human):
+    health = 50
+    isdead = False
+    will_move = "N"
+    will_interact = "N"
+    will_attack = "N"
+    will_loot = "N"
+    will_cover = "N"
+    inventory = []
+    cover = ""
+    win = False
+    i = 0
+    j = 0
+    name = "Chemist"
     pass
 class Astronaut(Human):
+    health = 50
+    isdead = False
+    will_move = "N"
+    will_interact = "N"
+    will_attack = "N"
+    will_loot = "N"
+    will_cover = "N"
+    inventory = []
+    cover = ""
+    win = False
+    i = 0
+    j = 0
+    name = "Astonaut"
     pass
 class Delegate(Human):
+    health = 50
+    isdead = False
+    will_move = "N"
+    will_interact = "N"
+    will_attack = "N"
+    will_loot = "N"
+    will_cover = "N"
+    inventory = []
+    cover = ""
+    win = False
+    i = 0
+    j = 0
+    name = "Delegate"
     pass
 # Reset the cover of a play
 def reset_cover(name):
@@ -625,7 +700,6 @@ def cover(name):
     name.cover = whichCover
     return name.cover
 
-
 def checkWin(name):
     if len(name.inventory) >= 2:
         name.win = True
@@ -654,7 +728,7 @@ def playGame():
             run_Turn(player)
             checkWin(player)
             if player.win == True:
-                print("TITTIES")
+                print("Winner")
                 return
 
 # tests all the code
