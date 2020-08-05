@@ -75,37 +75,6 @@ def map_step_three():
 # stores blank tiles
 num_of_blanks = map_step_three()
 
-# Creates the rooms types               ***This will probably be taken out to favor the JSON files***
-# class Room:
-#    num = 0
- #   max = 0
-  #  pass
-
-#class Medbay(Room):
- #   room_type = "Medbay"
-  #  room_ID = 1
-
-#class Armory(Room):
- #   room_type = "Armory"
-  #  room_ID = 2
-
-#class Storage(Room):
- #   room_type = "Storage"
-  #  room_ID = 3
-
-#class Security(Room):
- #   room_type = "Security"
-  #  room_ID = 4
-
-#class Airlock(Room):
- #   room_type = "Airlock"
-  #  room_ID = 5
-
-#class Lab(Room):
- #   room_type = "Lab"
-  #  room_ID = 6
-pass
-
 # Function to check if the room can take more of that room type (Doesnt do anything but im afraid to take it out)
 def check_avail(x):
     if map.count(x) < 10: return True
@@ -148,27 +117,6 @@ def make_map():
 def randomLootGenerator(randomLootList):
   return randomLootList[random.randrange(len(randomLootList))]
 
-# rooms=[]
-# rooms_actual = []
-# def assign_loottest(): #This is jus a basic test set up this will not be final
-#     roomfiles = ["./Room1.json","./Room2.json", "./Room3.json", "./Room4.json", "./Room5.json", "./Room6.json"]
-#
-#     for filename in roomfiles:
-#         with open(filename) as f:
-#             roomjson = json.load(f)
-#         assert isinstance(roomjson, dict)
-#         rooms.append(roomjson)
-#     print("Number of Room Types: " + str(len(rooms)))
-#     for x in rooms:
-#         print("Type: " + x.get("Type"))
-#         roommod = []
-#         roommod.append(x.get("Type"))
-#         for m in range((x.get("MaxLoot"))):
-#             y = randomLootGenerator(x.get("Loot"))
-#             roommod.append(y)
-#             print("Loot: " + y)
-#         rooms_actual.append(roommod)
-#     return rooms, rooms_actual
 # makes a dictionary for the rooms
 # Variables to aid with filling rooms and storing blanks
 roomDict = {}
@@ -613,7 +561,9 @@ def move(name):
             elif move.lower() == "right" and map[name.i][name.j+1] != 0 and name.j <= cols -1:
                 name.j += 1
                 reset_cover(name)
-            else: return
+            else: pass
+            describe_Room(name)
+            loot(name)
         except:
             pass
 # Unfinished function that lets the player extract loot from a room after asking them if they will loot the room
@@ -699,15 +649,48 @@ def cover(name):
             whichCover = input("Which Cover? ")
     name.cover = whichCover
     return name.cover
+# This function describes the room to the player
+# Figure out how to make people inhabit rooms for other players
+def describe_Room(name):
+    i_pos = name.i
+    j_pos = name.j
+    listI = i_pos * 10
+    if i_pos == 0:
+        listJ = j_pos
+    else:
+        listJ = j_pos + i_pos
+    listNum = listI + listJ
+    room = roomList[listNum]["Type"]
+    print("You have entered a {}".format(room))
+    otherPlayerList = playerList.copy()
+    otherPlayerList.pop(index(name))
+    playersInRoom = []
+    for player in otherPlayerList:
+        if player.i and player.j == name.i and name.j:
+            playersInRoom.append(player)
+    case= 0
+    while case == 0:
+        ans = input("Would you like to look around the room? ")
+        #improvement
+        if ans.lower() == "yes":
+            if len(playersInRoom) > 0:
+                print("You see {} and the {}".format(roomList[listNum]["Cover"],playersInRoom))
+            else:
+                print("You see {}".format(roomList[roomNum]["Cover"]))
+            break
+        elif ans.lower() == "no":
+            break
+    return
 
 def checkWin(name):
     if len(name.inventory) >= 2:
         name.win = True
     return name.win
 def run_Turn(name):
-    print(name.name, ", it is your turn.")
-    move(name)
+    print("{}, it is your turn.".format(name.name))
+    describe_Room(name)
     loot(name)
+    move(name)
     position(name)
     print(name.inventory)
 # Checks the position of a player
@@ -733,11 +716,11 @@ def playGame():
 
 # tests all the code
 def main():
+    start_up()
+    playGame()
     # For the initialization of characters, make max number of players a list then create players based off of that list
     # which will be player_list and have a function that assigns the characters based on what the player wants to that
     # list slot so it will be easier fr turns
-    start_up()
-    playGame()
     #print(num_of_tiles)
     #make_map() # I think this is printing the map
     #make_players()
