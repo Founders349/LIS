@@ -663,7 +663,7 @@ def describe_Room(name):
     room = roomList[listNum]["Type"]
     print("You have entered a {}".format(room))
     otherPlayerList = playerList.copy()
-    otherPlayerList.pop(index(name))
+    otherPlayerList.pop(otherPlayerList.index(name))
     playersInRoom = []
     for player in otherPlayerList:
         if player.i and player.j == name.i and name.j:
@@ -676,7 +676,7 @@ def describe_Room(name):
             if len(playersInRoom) > 0:
                 print("You see {} and the {}".format(roomList[listNum]["Cover"],playersInRoom))
             else:
-                print("You see {}".format(roomList[roomNum]["Cover"]))
+                print("You see {}".format(roomList[listNum]["Cover"]))
             break
         elif ans.lower() == "no":
             break
@@ -817,4 +817,7 @@ main()
 # Start up sequence
     # How many players and adding them to a list
 # Stats of pretty much everything
+# Make a reset so players can only loot once per turn!!!!!!!!!!!!!!!!!!!
+# !!!!
+# !!!!
 # BONDING AS ROOMMATES :)
