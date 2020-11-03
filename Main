@@ -696,6 +696,7 @@ def run_Turn(name):
 # Checks the position of a player
 def position(name):
     print(name.i, name.j)
+# Start up function
 def start_up():
     make_map()
     final_loot_assign()
@@ -793,7 +794,7 @@ main()
 # NEW BAND NAME THE FEET OF CHILDREN
 
 ### TO DO LIST ###
-# Function to make players and auto roll them
+# Function to make players and auto roll them // Finished \\
 # Check room function that is different from loot and shows interactable (Tables to overturn lol and cover of room)
 # Placement of characters //Finished\\
     # Make sure they're not directly on an island //Finished\\
@@ -801,7 +802,7 @@ main()
 # Creation of loot pools into a seperate dictionaries and compile that into a list // FINISHED (roomList) \\
     # Key bind position to hold loot // FINISHED \\
     # Transfer of loot to character  // FINISHED \\
-    # Figure out which loot will belong in which room
+    # Figure out which loot will belong in which room //eh\\
         # rarity of loot? -> make more instances of commoner items in the loot list
 # Crafting (Will be done with dictionaries and will start with very few recipies)
 # Make Cover that has to be interacted with for it to be cover. (Tables)
