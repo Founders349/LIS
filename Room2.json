@@ -1,6 +1,6 @@
 {
   "Type": "Armory",
-  "Loot": ["attchments", "guns?"],
+  "Loot": ["attachments", "guns?"],
   "MaxLoot": 1,
   "MaxCover": 1,
   "Cover": ["Half-Cover", "No-Cover"]
