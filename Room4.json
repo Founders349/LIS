@@ -1,5 +1,5 @@
 {
-  "Type": "Security",
+  "Type": "Security Room",
   "Loot": ["key card", "uniform", "baton"],
   "MaxLoot": 1,
   "MaxCover": 1,
