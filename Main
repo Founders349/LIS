@@ -663,10 +663,13 @@ def describe_Room(name):
     listNum = listI + listJ
     room = roomList[listNum]["Type"]
     print("You have entered a {}".format(room))
-    otherPlayerList = playerList.copy()
-    otherPlayerList.pop(otherPlayerList.index(name))
+    otherPlayerListv1 = playerList.copy()
+    otherPlayerListv2 = []
+    for object in otherPlayerListv1:
+        otherPlayerListv2.append(object.name)
+    print(otherPlayerListv2)
     playersInRoom = []
-    for player in otherPlayerList:
+    for player in otherPlayerListv2:
         if player.i and player.j == name.i and name.j:
             playersInRoom.append(player)
     case= 0
@@ -721,7 +724,13 @@ def playGame():
 # tests all the code
 def main():
     start_up()
-    playGame()
+    Engineer.i = 5
+    Engineer.y = 5
+    Doctor.i = 5
+    Doctor.y = 5
+    run_Turn(Doctor)
+
+    #playGame()
     # For the initialization of characters, make max number of players a list then create players based off of that list
     # which will be player_list and have a function that assigns the characters based on what the player wants to that
     # list slot so it will be easier fr turns
