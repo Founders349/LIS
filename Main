@@ -3,6 +3,7 @@ import random
 import json
 import logging
 import sys
+import cmd as cmd
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
@@ -682,6 +683,8 @@ def describe_Room(name):
             break
     return
 
+
+
 def checkWin(name):
     if len(name.inventory) >= 2:
         name.win = True
@@ -794,6 +797,7 @@ main()
 # NEW BAND NAME THE FEET OF CHILDREN
 
 ### TO DO LIST ###
+# Make a Terminal and present a list of options for the user
 # Function to make players and auto roll them // Finished \\
 # Check room function that is different from loot and shows interactable (Tables to overturn lol and cover of room)
 # Placement of characters //Finished\\
