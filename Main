@@ -662,16 +662,12 @@ def describe_Room(name):
     listNum = listI + listJ
     room = roomList[listNum]["Type"]
     print("You have entered a {}".format(room))
-    otherPlayerListOBJ = playerList.copy()
-    otherPlayerListSTR = []
+    otherPlayerListOBJ = playerList.copy() # CPU Friendly
+    otherPlayerListSTR = [] # User Friendly
     for object in otherPlayerListOBJ:
         otherPlayerListSTR.append(object.name)
-    #print(otherPlayerListSTR)
-    #print(otherPlayerListOBJ)
     otherPlayerListOBJ.pop(otherPlayerListSTR.index(strName))
     otherPlayerListSTR.pop(otherPlayerListSTR.index(strName))
-    print(otherPlayerListSTR)
-    print(otherPlayerListOBJ)
     playersInRoom = []
     for player in otherPlayerListOBJ:
         if player.i and player.j == name.i and name.j:
