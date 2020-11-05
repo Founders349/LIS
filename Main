@@ -682,7 +682,7 @@ def describe_Room(name):
     case= 0
     while case == 0:
         ans = input("Would you like to look around the room? ")
-        #improve this function
+        # work on this function
         if ans.lower() == "yes":
             if len(playersInRoom) > 0:
                 print("You see {} and the {}".format(roomList[listNum]["Cover"],playersInRoom))
