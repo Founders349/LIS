@@ -3,7 +3,6 @@ import random
 import json
 import logging
 import sys
-import cmd as cmd
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
@@ -651,8 +650,8 @@ def cover(name):
     name.cover = whichCover
     return name.cover
 # This function describes the room to the player
-# Figure out how to make people inhabit rooms for other players
 def describe_Room(name):
+    strName = name.name
     i_pos = name.i
     j_pos = name.j
     listI = i_pos * 10
@@ -663,19 +662,24 @@ def describe_Room(name):
     listNum = listI + listJ
     room = roomList[listNum]["Type"]
     print("You have entered a {}".format(room))
-    otherPlayerListv1 = playerList.copy()
-    otherPlayerListv2 = []
-    for object in otherPlayerListv1:
-        otherPlayerListv2.append(object.name)
-    print(otherPlayerListv2)
+    otherPlayerListOBJ = playerList.copy()
+    otherPlayerListSTR = []
+    for object in otherPlayerListOBJ:
+        otherPlayerListSTR.append(object.name)
+    #print(otherPlayerListSTR)
+    #print(otherPlayerListOBJ)
+    otherPlayerListOBJ.pop(otherPlayerListSTR.index(strName))
+    otherPlayerListSTR.pop(otherPlayerListSTR.index(strName))
+    print(otherPlayerListSTR)
+    print(otherPlayerListOBJ)
     playersInRoom = []
-    for player in otherPlayerListv2:
+    for player in otherPlayerListOBJ:
         if player.i and player.j == name.i and name.j:
-            playersInRoom.append(player)
+            playersInRoom.append(otherPlayerListSTR[otherPlayerListOBJ.index(player)])
     case= 0
     while case == 0:
         ans = input("Would you like to look around the room? ")
-        #improvement
+        #improve this function
         if ans.lower() == "yes":
             if len(playersInRoom) > 0:
                 print("You see {} and the {}".format(roomList[listNum]["Cover"],playersInRoom))
@@ -687,7 +691,7 @@ def describe_Room(name):
     return
 
 
-
+# This function
 def checkWin(name):
     if len(name.inventory) >= 2:
         name.win = True
@@ -720,15 +724,25 @@ def playGame():
             if player.win == True:
                 print("Winner")
                 return
-
+# For testing purposes it makes everything except the players
+def testStartUp():
+    make_map()
+    final_loot_assign()
+    final_cover_assign()
 # tests all the code
 def main():
-    start_up()
-    Engineer.i = 5
-    Engineer.y = 5
-    Doctor.i = 5
-    Doctor.y = 5
-    run_Turn(Doctor)
+    # start_up()
+    # Testing finding people in the same rooms.
+    testStartUp()
+    p1 = Engineer(0,0,0,0)
+    playerList.append(p1)
+    p2 = Doctor(0,0,0,0)
+    playerList.append(p2)
+    p1.i = 0
+    p1.j = 0
+    p2.i = 5
+    p2.j = 5
+    run_Turn(p2)
 
     #playGame()
     # For the initialization of characters, make max number of players a list then create players based off of that list
