@@ -816,9 +816,6 @@ def main():
 
 main()
 
-
-# NEW BAND NAME THE FEET OF CHILDREN
-
 ### TO DO LIST ###
 # Make a Terminal and present a list of options for the user
 # Function to make players and auto roll them // Finished \\
