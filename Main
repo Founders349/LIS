@@ -4,6 +4,9 @@ import json
 import logging
 import sys
 from cmd import Cmd
+# Notes , cover is broken for small and medium map sizes.
+# Figure out what is going on with callLoot and the shell not liking stuff.
+
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
 
@@ -737,25 +740,16 @@ def testStartUp():
     make_map()
     final_loot_assign()
     final_cover_assign()
+# Temporary function that calls loot
+def callLoot(x):
+    print(x)
+    #player = playerList[]
+    #loot(player)
+    print("success")
 
-# testing the shell part of the code
-class shell(Cmd):
-
-    def do_loot(self, args):
-        loot(p1)
-
-    def do_quit(self, args):
-        print("Quitting...")
-        raise SystemExit
-
-# This brings up the shell but I do not know what to do from there. Figure out how to do this.
-def test_shell():
-    if __name__ == '__main__':
-        myshell = shell()
-        myshell.prompt = '> '
-        myshell.cmdloop('Starting prompt...')
 # tests all the code
 def main():
+
     # start_up()
     # Testing finding people in the same rooms.
     testStartUp()
@@ -770,7 +764,35 @@ def main():
     p2.i = 5
     p2.j = 5
     #run_Turn(p2)
+    print(playerList)
+
+    # testing the shell part of the code
+    # You can make a do_endturn() coupled with a timer to make the game go fast
+    # default show them their options
+    # this code runs without being called but for the shell to activate you need to call it with test_shell
+    class shell(Cmd):
+        x = 0
+        currentPlayer = playerList[0]
+        def do_loot(self, currentPlayer):
+            callLoot(currentPlayer)
+
+        def do_endturn(self, args):
+            print("Ending Turn")
+            x += 1
+
+        def do_quit(self, args):
+            print("Quitting")
+            raise SystemExit
+
+    # This brings up the shell but I do not know what to do from there. Figure out how to do this.
+    def test_shell():
+        if __name__ == '__main__':
+            myshell = shell()
+            myshell.prompt = '> '
+            myshell.cmdloop('Starting Turn...')
     test_shell()
+
+
 
     #playGame()
     # For the initialization of characters, make max number of players a list then create players based off of that list
