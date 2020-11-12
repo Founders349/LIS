@@ -664,6 +664,7 @@ def cover(name):
     return name.cover
 # This function describes the room to the player
 # Probably still needs work so circle back to this
+# needs help with move function.
 def describe_Room(name):
     strName = name.name
     i_pos = name.i
@@ -765,32 +766,33 @@ def main():
     p2.j = 5
     #run_Turn(p2)
     print(playerList)
+    playGame()
 
     # testing the shell part of the code
     # You can make a do_endturn() coupled with a timer to make the game go fast
     # default show them their options
     # this code runs without being called but for the shell to activate you need to call it with test_shell
-    class shell(Cmd):
-        x = 0
-        currentPlayer = playerList[0]
-        def do_loot(self, currentPlayer):
-            callLoot(currentPlayer)
-
-        def do_endturn(self, args):
-            print("Ending Turn")
-            x += 1
-
-        def do_quit(self, args):
-            print("Quitting")
-            raise SystemExit
-
-    # This brings up the shell but I do not know what to do from there. Figure out how to do this.
-    def test_shell():
-        if __name__ == '__main__':
-            myshell = shell()
-            myshell.prompt = '> '
-            myshell.cmdloop('Starting Turn...')
-    test_shell()
+    # class shell(Cmd):
+    #     x = 0
+    #     currentPlayer = playerList[x]
+    #     def do_loot(self, currentPlayer):
+    #         callLoot(currentPlayer)
+    #
+    #     def do_endturn(self, args):
+    #         print("Ending Turn")
+    #         x += 1
+    #
+    #     def do_quit(self, args):
+    #         print("Quitting")
+    #         raise SystemExit
+    #
+    # # This brings up the shell but I do not know what to do from there. Figure out how to do this.
+    # def test_shell():
+    #     if __name__ == '__main__':
+    #         myshell = shell()
+    #         myshell.prompt = '> '
+    #         myshell.cmdloop('Starting Turn...')
+    # test_shell()
 
 
 
