@@ -1,7 +1,7 @@
 {
   "gun": {
     "Craftable": "Yes",
-    "Recipie": ["gunpowder", "pile of screws", "metal sheet"],
+    "Recipie": ["gunpowder", "screws", "screws", "metal sheet"],
     "Craftable by": "Engineer",
     "Amount": 1
   },
@@ -11,7 +11,7 @@
     "Craftable by": "anyone",
     "Amount": 1
   },
-  "bullet": {
+  "bullets": {
     "Craftable": "Yes",
     "Recipie": ["metal sheet"],
     "Craftable By": "anyone",
