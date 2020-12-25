@@ -13,7 +13,7 @@
   },
   "bullet": {
     "Craftable": "Yes",
-    "Recipie": "metal sheet",
+    "Recipie": ["metal sheet"],
     "Craftable By": "anyone",
     "Amount": 5
   }
