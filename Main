@@ -733,6 +733,10 @@ def look_around(name):
     return
 # Function for crafting items
 def craft(name):
+    #name.inventory.append("screws")
+    #name.inventory.append("metal sheet")
+    #name.inventory.append("screws")
+    #name.inventory.append("gunpowder")
     inventory = name.inventory
     with open("./Item_properties.json") as f:
         itemsprop = json.load(f)
@@ -744,8 +748,21 @@ def craft(name):
         tempList.append(key)
         tempList.append(itemsprop[key]["Recipie"])
         itemAndRec.append(tempList)
-    for i in itemAndRec:
-        if 
+    craftables = []
+    for i in range(len(itemAndRec)):
+        if all(item in inventory for item in itemAndRec[i][1]):
+            craftables.append(itemAndRec[i])
+    print("You may craft the following: {}".format(craftables))
+    case = ""
+    while case == "":
+        ans = input("What will you craft? ")
+        for i in range(len(craftables)):
+            if ans.lower() in craftables[i]:
+                name.inventory.append(ans) # make it craft the right amount of things
+                for j in range(len(craftables[i][1])):
+                    name.inventory.remove(craftables[i][1][j])
+        break
+    print(name.inventory)
 
 # Checks the inventory
 def checkInv(name):
