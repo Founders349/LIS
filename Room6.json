@@ -1,6 +1,6 @@
 {
   "Type": "Lab",
-  "Loot": ["chemicals", "m", "s", "b"],
+  "Loot": ["chemicals", "gunpowder", "b"],
   "MaxLoot": 2,
   "MaxCover": 1,
   "Cover": ["Half-Cover","No-Cover"]
