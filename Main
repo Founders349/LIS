@@ -1,14 +1,16 @@
-#!/usr/bin/env python
 import random
 import json
 import logging
 import sys
-from cmd import Cmd
+import os
 # Notes , cover is broken for small and medium map sizes.
 # Figure out what is going on with callLoot and the shell not liking stuff.
 
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
+
+#path = r'C:\Users\jakeg\OneDrive\Documents\GitHub\LIS\Rooms.log'
+#os.remove(path)
 
 playerList = []
 availableCharacters = ["Engineer", "Doctor", "Veteran", "Technician", "Chemist", "Astronaut", "Delegate"]
@@ -25,18 +27,18 @@ def get_map_size():
         if mapsize.upper() == 'S':
             num_of_tiles = random.randrange(25, 35)
             print("The Map is", num_of_tiles, "Tiles")
-            return num_of_tiles
+            return num_of_tiles, mapsize
         elif mapsize.upper() == 'M':
             num_of_tiles = random.randrange(40, 60)
             print("The Map is", num_of_tiles, "Tiles")
-            return num_of_tiles
+            return num_of_tiles, mapsize
         elif mapsize.upper() == 'L':
             num_of_tiles = random.randrange(80, 100)
             print("The Map is", num_of_tiles, "Tiles")
-            return num_of_tiles
+            return num_of_tiles, mapsize
 
 # stores the map size so we can make the map
-num_of_tiles = get_map_size()
+num_of_tiles, mapsize = get_map_size()
 # Creates the map size returning the amount of rows and columns
 def map_step_one():
     if num_of_tiles < 36:
@@ -164,7 +166,12 @@ def assign_cover(roomNum,i,j):
     with open(roomfiles[roomNum-1]) as f:
         roomjson = json.load(f)
     assert isinstance(roomjson, dict)
-    listI = i * 10
+    if mapsize == "S":
+        listI = i * 6
+    elif mapsize == "M":
+        listI = i * 8
+    else:
+        listI = i * 10
     if i == 0:
         listJ = j
     else:
@@ -237,7 +244,12 @@ def final_loot_assign():
 # Returns error when finding loot of "zero room" will be fixed when placement is fixed
 # Requires more testing but works for most basic cases (check the ends tho)
 def print_Loot(i,j):
-    listI = i * 10
+    if mapsize == "S":
+        listI = i * 6
+    elif mapsize == "M":
+        listI = i * 8
+    else:
+        listI = i * 10
     if i == 0:
         listJ = j
     else:
@@ -249,7 +261,12 @@ def print_Loot(i,j):
     return
 
 def print_Cover(i,j):
-    listI = i * 10
+    if mapsize == "S":
+        listI = i * 6
+    elif mapsize == "M":
+        listI = i * 8
+    else:
+        listI = i * 10
     if i == 0:
         listJ = j
     else:
@@ -525,7 +542,7 @@ def check_Interact(name):
 def move(name):
     case = 0
     while case == 0:
-        will_move = input("Will you move? Y/N ")
+        will_move = "y"
         if will_move.lower() == "y":
             name.will_move = "Y"
             break
@@ -575,8 +592,10 @@ def move(name):
                 name.j += 1
                 reset_cover(name)
             else: pass
-            describe_Room(name)
-            loot(name)
+            listNum, playersInRoom = describe_Room(name)
+            room = roomList[listNum]["Type"]
+            print("You have entered a {}".format(room))
+            #loot(name)
         except:
             pass
 # Unfinished function that lets the player extract loot from a room after asking them if they will loot the room
@@ -584,22 +603,21 @@ def move(name):
 def loot(name):
     case = 0
     while case == 0:
-        check_loot = input("Will You Check For Loot? Y/N ")
+        check_loot = "y"
         if check_loot.lower() == "y":
             i = name.i
             j = name.j
             name.will_loot = "Y"
             print_Loot(i, j)
             break
-        elif check_loot.lower() == "n":
-            name.will_loot = "N"
-            return
-        else:
-            name.will_loot = "N"
-            return
     i = name.i
     j = name.j
-    listI = i * 10
+    if mapsize == "S":
+        listI = i * 6
+    elif mapsize == "M":
+        listI = i * 8
+    else:
+        listI = i * 10
     if i == 0:
         listJ = j
     else:
@@ -627,7 +645,7 @@ def loot(name):
 def cover(name):
     case = 0
     while case == 0:
-        will_cover=input("Will you attempt to get behind cover? Y/N ")
+        will_cover="y"
         if will_cover.lower() == "y":
             i = name.i
             j = name.j
@@ -637,7 +655,12 @@ def cover(name):
             return name.will_cover == "N"
     i = name.i
     j = name.j
-    listI = i * 10
+    if mapsize == "S":
+        listI = i * 6
+    elif mapsize == "M":
+        listI = i * 8
+    else:
+        listI = i * 10
     if i == 0:
         listJ = j
     else:
@@ -665,18 +688,21 @@ def cover(name):
 # This function describes the room to the player
 # Probably still needs work so circle back to this
 # needs help with move function.
-def describe_Room(name):
+def describe_Room(name):# doesnt work... Holds for a turn... Change this too look around and have the fuction decribe the room without printing anything
     strName = name.name
-    i_pos = name.i
-    j_pos = name.j
-    listI = i_pos * 10
-    if i_pos == 0:
-        listJ = j_pos
+    i = name.i
+    j = name.j
+    if mapsize == "S":
+        listI = i * 6
+    elif mapsize == "M":
+        listI = i * 8
     else:
-        listJ = j_pos + i_pos
+        listI = i * 10
+    if i == 0:
+        listJ = j
+    else:
+        listJ = j + i
     listNum = listI + listJ
-    room = roomList[listNum]["Type"]
-    print("You have entered a {}".format(room))
     otherPlayerListOBJ = playerList.copy() # CPU Friendly
     otherPlayerListSTR = [] # User Friendly
     for object in otherPlayerListOBJ:
@@ -687,13 +713,18 @@ def describe_Room(name):
     for player in otherPlayerListOBJ:
         if player.i and player.j == name.i and name.j:
             playersInRoom.append(otherPlayerListSTR[otherPlayerListOBJ.index(player)])
-    case= 0
+    return listNum, playersInRoom
+def look_around(name):
+    listNum, playersInRoom = describe_Room(name)
+    room = roomList[listNum]["Type"]
+    print("You are in a {}".format(room))
+    case = 0
     while case == 0:
-        ans = input("Would you like to look around the room? ")
+        ans = "yes"
         # work on this function
         if ans.lower() == "yes":
             if len(playersInRoom) > 0:
-                print("You see {} and the {}".format(roomList[listNum]["Cover"],playersInRoom))
+                print("You see {} and the {}".format(roomList[listNum]["Cover"], playersInRoom))
             else:
                 print("You see {}".format(roomList[listNum]["Cover"]))
             break
@@ -701,20 +732,75 @@ def describe_Room(name):
             break
     return
 
+# Checks the inventory
+def checkInv(name):
+    print(name.inventory)
+
 def checkWin(name):
     if len(name.inventory) >= 2:
         name.win = True
     return name.win
+def run_Turn_debug(name): # Test for the turn functions will help with crafting and other things
+    print("DEBUG TURN /// DEBUG TURN")
+    print("{}, it is your turn.".format(name.name))
+    moves = ["help", "loot", "move", "check inventory", "look around", "position", "give", "newfunc", "random pos", "end turn"]
+    case = ""
+    print("You may do the following:", moves)
+    while case == "":
+        ans = input("What will you do? ")
+        if ans.lower() == "loot":
+            loot(name)
+        elif ans.lower() == "move":
+            move(name)
+        elif ans.lower() == "check inventory":
+            checkInv(name)
+        elif ans.lower() == "help":
+            print(moves)
+        elif ans.lower() == "look around":
+            look_around(name)
+        elif ans.lower() == "random pos": # broken
+            randomPos(name)
+        elif ans.lower() == "position":
+            position(name)
+        elif ans.lower() == "give":
+            ans2 = input("What would you like to give the {}? ".format(name.name))
+            name.inventory.append(ans2)
+        elif ans.lower() == "newfunc":
+            ans3 = input("What will you do? ")
+            ans3 = str_to_class(ans3)
+            ans3(name)
+        elif ans.lower() == "end turn":
+            break
+    pass
 
 def run_Turn(name):
     print("{}, it is your turn.".format(name.name))
-    describe_Room(name)
-    if name.moves.count("Loot") > 0:
-        loot(name)
-    if name.moves.count("Move") > 0:
-        move(name)
-    position(name) # needs to be taken out for the final one
-    print(name.inventory)
+    moves = ["help", "loot", "move", "check inventory", "look around", "end turn"]
+    case = ""
+    print("You may do the following:", moves)
+    while case == "":
+        ans = input("What will you do? ")
+        if ans.lower() == "loot":
+            loot(name)
+        elif ans.lower() == "move":
+            move(name)
+        elif ans.lower() == "check inventory":
+            checkInv(name)
+        elif ans.lower() == "help":
+            print(moves)
+        elif ans.lower() == "look around":
+            look_around(name)
+        elif ans.lower() == "test_hakayg,.!":
+            run_Turn_debug(name)
+        elif ans.lower() == "end turn":
+            break
+
+    #if name.moves.count("Loot") > 0:
+    #    loot(name)
+    #if name.moves.count("Move") > 0:
+    #    move(name)
+    #position(name) # needs to be taken out for the final one
+    #print(name.inventory)
 # Checks the position of a player
 def position(name):
     print(name.i, name.j)
@@ -749,50 +835,29 @@ def callLoot(x):
     print("success")
 
 # tests all the code
-def main():
 
-    # start_up()
+# People in the same room is broken for the playgame function
+# Cover is broken because I list is not always multiplied by 10.
+
+if __name__ == "__main__":
+
+    start_up()
     # Testing finding people in the same rooms.
-    testStartUp()
-    p1 = Engineer(0,0,0,0)
-    playerList.append(p1)
-    reset_Moves(p1)
-    p2 = Doctor(0,0,0,0)
-    playerList.append(p2)
-    reset_Moves(p2)
-    p1.i = 5
-    p1.j = 5
-    p2.i = 5
-    p2.j = 5
+    #testStartUp()
+    #p1 = Engineer(0,0,0,0)
+    #playerList.append(p1)
+    #reset_Moves(p1)
+    #p2 = Doctor(0,0,0,0)
+    #playerList.append(p2)
+    #reset_Moves(p2)
+    #p1.i = 5
+    #p1.j = 5
+    #p2.i = 5
+    #p2.j = 5
     #run_Turn(p2)
-    print(playerList)
+    #print(playerList)
     playGame()
 
-    # testing the shell part of the code
-    # You can make a do_endturn() coupled with a timer to make the game go fast
-    # default show them their options
-    # this code runs without being called but for the shell to activate you need to call it with test_shell
-    # class shell(Cmd):
-    #     x = 0
-    #     currentPlayer = playerList[x]
-    #     def do_loot(self, currentPlayer):
-    #         callLoot(currentPlayer)
-    #
-    #     def do_endturn(self, args):
-    #         print("Ending Turn")
-    #         x += 1
-    #
-    #     def do_quit(self, args):
-    #         print("Quitting")
-    #         raise SystemExit
-    #
-    # # This brings up the shell but I do not know what to do from there. Figure out how to do this.
-    # def test_shell():
-    #     if __name__ == '__main__':
-    #         myshell = shell()
-    #         myshell.prompt = '> '
-    #         myshell.cmdloop('Starting Turn...')
-    # test_shell()
 
 
 
@@ -863,10 +928,6 @@ def main():
     #loot(engineer_1)
     #print(engineer_1.inventory)
 
-
-
-
-main()
 
 ### TO DO LIST ###
 # Make a Terminal and present a list of options for the user
