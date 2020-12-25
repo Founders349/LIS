@@ -731,6 +731,21 @@ def look_around(name):
         elif ans.lower() == "no":
             break
     return
+# Function for crafting items
+def craft(name):
+    inventory = name.inventory
+    with open("./Item_properties.json") as f:
+        itemsprop = json.load(f)
+    assert isinstance(itemsprop, dict)
+    itemAndRec = []
+    for key in itemsprop:
+        print(key)
+        tempList = []
+        tempList.append(key)
+        tempList.append(itemsprop[key]["Recipie"])
+        itemAndRec.append(tempList)
+    for i in itemAndRec:
+        if 
 
 # Checks the inventory
 def checkInv(name):
@@ -743,7 +758,7 @@ def checkWin(name):
 def run_Turn_debug(name): # Test for the turn functions will help with crafting and other things
     print("DEBUG TURN /// DEBUG TURN")
     print("{}, it is your turn.".format(name.name))
-    moves = ["help", "loot", "move", "check inventory", "look around", "position", "give", "newfunc", "random pos", "end turn"]
+    moves = ["help", "loot", "move", "check inventory", "look around", "position", "give", "newfunc", "craft", "random pos", "end turn"]
     case = ""
     print("You may do the following:", moves)
     while case == "":
@@ -762,6 +777,8 @@ def run_Turn_debug(name): # Test for the turn functions will help with crafting 
             randomPos(name)
         elif ans.lower() == "position":
             position(name)
+        elif ans.lower() == "craft":
+            craft(name)
         elif ans.lower() == "give":
             ans2 = input("What would you like to give the {}? ".format(name.name))
             name.inventory.append(ans2)
@@ -817,7 +834,8 @@ def playGame():
     game = "unwon"
     while game == "unwon":
         for player in playerList:
-            run_Turn(player)
+            #run_Turn(player)
+            run_Turn_debug(player)
             checkWin(player)
             if player.win == True:
                 print("Winner")
