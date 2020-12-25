@@ -1,7 +1,20 @@
 {
-  
-
-
-
-
+  "gun": {
+    "Craftable": "Yes",
+    "Recipie": ["gunpowder", "pile of screws", "metal sheet"],
+    "Craftable by": "Engineer",
+    "Amount": 1
+  },
+  "pile of screws": {
+    "Craftable": "Yes",
+    "Recipie": ["screws", "screws"],
+    "Craftable by": "anyone",
+    "Amount": 1
+  },
+  "bullet": {
+    "Craftable": "Yes",
+    "Recipie": "metal sheet",
+    "Craftable By": "anyone",
+    "Amount": 5
+  }
 }
