@@ -150,7 +150,6 @@ def assign_loot(roomNum, i, j):
         loot = randomLootGenerator(roomjson.get("Loot"))
         lootList.append(loot)
     roomDict["Loot"] = lootList
-    #logging.info(roomDict)
     roomDict_copy = roomDict.copy()
     roomList.append(roomDict_copy)
     return roomList
@@ -877,7 +876,7 @@ if __name__ == "__main__":
 
     #playGame()
     #print(num_of_tiles)
-    #make_map() # I think this is printing the map
+    #make_map()
     #make_players()
     #randomPos(Engineer)
     #print(Engineer.i,Engineer.j)
