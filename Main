@@ -3,14 +3,9 @@ import json
 import logging
 import sys
 import os
-# Notes , cover is broken for small and medium map sizes.
-# Figure out what is going on with callLoot and the shell not liking stuff.
 
 # Stores information in the log
 logging.basicConfig(filename = 'Rooms.log', level=logging.DEBUG)
-
-#path = r'C:\Users\jakeg\OneDrive\Documents\GitHub\LIS\Rooms.log'
-#os.remove(path)
 
 playerList = []
 availableCharacters = ["Engineer", "Doctor", "Veteran", "Technician", "Chemist", "Astronaut", "Delegate"]
@@ -255,7 +250,6 @@ def print_Loot(i,j):
     else:
         listJ = j + i
     listNum = listI + listJ
-    #print(listNum)
     roomLoot = roomList[listNum]["Loot"]
     print(roomLoot)
     return
@@ -595,7 +589,6 @@ def move(name):
             listNum, playersInRoom = describe_Room(name)
             room = roomList[listNum]["Type"]
             print("You have entered a {}".format(room))
-            #loot(name)
         except:
             pass
 # Unfinished function that lets the player extract loot from a room after asking them if they will loot the room
@@ -686,9 +679,7 @@ def cover(name):
     name.cover = whichCover
     return name.cover
 # This function describes the room to the player
-# Probably still needs work so circle back to this
-# needs help with move function.
-def describe_Room(name):# doesnt work... Holds for a turn... Change this too look around and have the fuction decribe the room without printing anything
+def describe_Room(name):
     strName = name.name
     i = name.i
     j = name.j
@@ -733,10 +724,6 @@ def look_around(name):
     return
 # Function for crafting items
 def craft(name):
-    #name.inventory.append("screws")
-    #name.inventory.append("metal sheet")
-    #name.inventory.append("screws")
-    #name.inventory.append("gunpowder")
     inventory = name.inventory
     with open("./Item_properties.json") as f:
         itemsprop = json.load(f)
@@ -747,6 +734,7 @@ def craft(name):
         tempList = []
         tempList.append(key)
         tempList.append(itemsprop[key]["Recipie"])
+        tempList.append(itemsprop[key]["Amount"])
         itemAndRec.append(tempList)
     craftables = []
     for i in range(len(itemAndRec)):
@@ -758,7 +746,8 @@ def craft(name):
         ans = input("What will you craft? ")
         for i in range(len(craftables)):
             if ans.lower() in craftables[i]:
-                name.inventory.append(ans) # make it craft the right amount of things
+                for k in range(craftables[i][2]):
+                    name.inventory.append(ans)
                 for j in range(len(craftables[i][1])):
                     name.inventory.remove(craftables[i][1][j])
         break
@@ -775,7 +764,7 @@ def checkWin(name):
 def run_Turn_debug(name): # Test for the turn functions will help with crafting and other things
     print("DEBUG TURN /// DEBUG TURN")
     print("{}, it is your turn.".format(name.name))
-    moves = ["help", "loot", "move", "check inventory", "look around", "position", "give", "newfunc", "craft", "random pos", "end turn"]
+    moves = ["help", "loot", "move", "check inventory", "look around", "position", "give", "givetest", "newfunc", "craft", "random pos", "end turn"]
     case = ""
     print("You may do the following:", moves)
     while case == "":
@@ -799,6 +788,11 @@ def run_Turn_debug(name): # Test for the turn functions will help with crafting 
         elif ans.lower() == "give":
             ans2 = input("What would you like to give the {}? ".format(name.name))
             name.inventory.append(ans2)
+        elif ans.lower() == "givetest":
+            name.inventory.append("screws")
+            name.inventory.append("metal sheet")
+            name.inventory.append("screws")
+            name.inventory.append("gunpowder")
         elif ans.lower() == "newfunc":
             ans3 = input("What will you do? ")
             ans3 = str_to_class(ans3)
@@ -871,35 +865,17 @@ def callLoot(x):
 
 # tests all the code
 
-# People in the same room is broken for the playgame function
-# Cover is broken because I list is not always multiplied by 10.
+# People in the same room is broken for the playgame function MAYBE STILL
 
 if __name__ == "__main__":
 
     start_up()
-    # Testing finding people in the same rooms.
-    #testStartUp()
-    #p1 = Engineer(0,0,0,0)
-    #playerList.append(p1)
-    #reset_Moves(p1)
-    #p2 = Doctor(0,0,0,0)
-    #playerList.append(p2)
-    #reset_Moves(p2)
-    #p1.i = 5
-    #p1.j = 5
-    #p2.i = 5
-    #p2.j = 5
-    #run_Turn(p2)
-    #print(playerList)
     playGame()
 
 
 
 
     #playGame()
-    # For the initialization of characters, make max number of players a list then create players based off of that list
-    # which will be player_list and have a function that assigns the characters based on what the player wants to that
-    # list slot so it will be easier fr turns
     #print(num_of_tiles)
     #make_map() # I think this is printing the map
     #make_players()
@@ -963,34 +939,4 @@ if __name__ == "__main__":
     #loot(engineer_1)
     #print(engineer_1.inventory)
 
-
-### TO DO LIST ###
-# Make a Terminal and present a list of options for the user
-# Function to make players and auto roll them // Finished \\
-# Check room function that is different from loot and shows interactable (Tables to overturn lol and cover of room)
-# Placement of characters //Finished\\
-    # Make sure they're not directly on an island //Finished\\
-    # Place them in a room that is actually a room //Finished\\
-# Creation of loot pools into a seperate dictionaries and compile that into a list // FINISHED (roomList) \\
-    # Key bind position to hold loot // FINISHED \\
-    # Transfer of loot to character  // FINISHED \\
-    # Figure out which loot will belong in which room //eh\\
-        # rarity of loot? -> make more instances of commoner items in the loot list
-# Crafting (Will be done with dictionaries and will start with very few recipies)
-# Make Cover that has to be interacted with for it to be cover. (Tables)
-# Turn Phases
-    # this would be like action reaction and stuff like that and the player would have choose which one to do.
-# Server/ hosting / multiplayer
-    # Turn mechanism
-# Movement into non-zero places // Finished \\
-# Actually attacking
-    # Attacking buffs
-# Figure out logs
-    # Figure out where to store the logs // done (turns out its useless :p \\
-# Start up sequence
-    # How many players and adding them to a list
-# Stats of pretty much everything
-# Make a reset so players can only loot once per turn!!!!!!!!!!!!!!!!!!!
-# !!!!
-# !!!!
 # BONDING AS ROOMMATES :)
