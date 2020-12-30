@@ -729,17 +729,19 @@ def craft(name):
     assert isinstance(itemsprop, dict)
     itemAndRec = []
     for key in itemsprop:
-        print(key)
         tempList = []
         tempList.append(key)
-        tempList.append(itemsprop[key]["Recipie"])
+        tempList.append(itemsprop[key]["Recipe"])
         tempList.append(itemsprop[key]["Amount"])
+        tempList.append(itemsprop[key]["Craftable by"])
         itemAndRec.append(tempList)
     craftables = []
     for i in range(len(itemAndRec)):
-        if all(item in inventory for item in itemAndRec[i][1]):
-            craftables.append(itemAndRec[i])
-    print("You may craft the following: {}".format(craftables))
+        if "anyone" in itemAndRec[i][3] or name.name in itemAndRec[i][3]:
+            if all(item in inventory for item in itemAndRec[i][1]):
+                craftables.append(itemAndRec[i])
+    for i in range(len(craftables)):
+        print("You can craft {} {}".format(craftables[i][2],craftables[i][0]))
     case = ""
     while case == "":
         ans = input("What will you craft? ")
