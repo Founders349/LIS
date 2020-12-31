@@ -705,7 +705,30 @@ def describe_Room(name):
             playersInRoom.append(otherPlayerListSTR[otherPlayerListOBJ.index(player)])
     return listNum, playersInRoom
 def look_around(name):
-    listNum, playersInRoom = describe_Room(name)
+    strName = name.name
+    i = name.i
+    j = name.j
+    if mapsize == "S":
+        listI = i * 6
+    elif mapsize == "M":
+        listI = i * 8
+    else:
+        listI = i * 10
+    if i == 0:
+        listJ = j
+    else:
+        listJ = j + i
+    listNum = listI + listJ
+    otherPlayerListOBJ = playerList.copy()  # CPU Friendly
+    otherPlayerListSTR = []  # User Friendly
+    for object in otherPlayerListOBJ:
+        otherPlayerListSTR.append(object.name)
+    otherPlayerListOBJ.pop(otherPlayerListSTR.index(strName))
+    otherPlayerListSTR.pop(otherPlayerListSTR.index(strName))
+    playersInRoom = []
+    for player in otherPlayerListOBJ:
+        if player.i == name.i and player.j == name.j:
+            playersInRoom.append(otherPlayerListSTR[otherPlayerListOBJ.index(player)])
     room = roomList[listNum]["Type"]
     print("You are in a {}".format(room))
     case = 0
@@ -759,13 +782,12 @@ def checkInv(name):
     print(name.inventory)
 
 def checkWin(name):
-    if len(name.inventory) >= 2:
-        name.win = True
-    return name.win
+    if name.win:
+        return name.win
 def run_Turn_debug(name): # Test for the turn functions will help with crafting and other things
     print("DEBUG TURN /// DEBUG TURN")
     print("{}, it is your turn.".format(name.name))
-    moves = ["help", "loot", "move", "check inventory", "look around", "position", "give", "givetest", "newfunc", "craft", "random pos", "end turn"]
+    moves = ["help", "loot", "move", "check inventory", "look around", "position", "give", "givetest", "newfunc", "craft", "random pos", "end turn", "end game"]
     case = ""
     print("You may do the following:", moves)
     while case == "":
@@ -786,6 +808,9 @@ def run_Turn_debug(name): # Test for the turn functions will help with crafting 
             position(name)
         elif ans.lower() == "craft":
             craft(name)
+        elif ans.lower() == "end game":
+            name.win = True
+            break
         elif ans.lower() == "give":
             ans2 = input("What would you like to give the {}? ".format(name.name))
             name.inventory.append(ans2)
@@ -795,7 +820,7 @@ def run_Turn_debug(name): # Test for the turn functions will help with crafting 
             name.inventory.append("screws")
             name.inventory.append("gunpowder")
         elif ans.lower() == "newfunc":
-            ans3 = input("What will you do? ")
+            ans3 = input("Enter a new function: ")
             ans3 = str_to_class(ans3)
             ans3(name)
         elif ans.lower() == "end turn":
